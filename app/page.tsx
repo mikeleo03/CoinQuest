@@ -1,6 +1,29 @@
+"use client";
+
 import Image from "next/image";
+import React, { useEffect, useState } from "react";
+import supabase from "@/utils/supabase";
+
+interface User {
+  id: number;
+  name: string;
+}
 
 export default function Home() {
+  const [users, setUsers] = useState<User[]>([]);
+  useEffect(() => {
+    async function fetchUserData() {
+      const { data, error } = await supabase.from("Users").select("id, name");
+      if (error) {
+        console.error("Error fetching user data:", error);
+      } else {
+        console.log("Found", data);
+        setUsers(data);
+      }
+    }
+
+    fetchUserData();
+  }, []);
   return (
     <main className="flex min-h-screen flex-col items-center justify-between p-24">
       <div className="z-10 max-w-5xl w-full items-center justify-between font-mono text-sm lg:flex">
