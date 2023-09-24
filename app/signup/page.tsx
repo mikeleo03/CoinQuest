@@ -11,6 +11,7 @@ import {
 } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import Link from 'next/link';
 
 const singupPage = () => {
   return (
@@ -28,11 +29,11 @@ const singupPage = () => {
         />
       </div>
 
-      {/* Login */}
+      {/* Signup */}
       <Card className="w-fit z-10 p-5 border-none bg-gray-400 bg-clip-padding backdrop-filter backdrop-blur-none bg-opacity-30 border border-gray-100 text-white rounded-3xl">
         <CardHeader>
-          <CardTitle className="text-4xl ">Sign Up</CardTitle>
-          <CardDescription className="text-white text-base ">
+          <CardTitle className="text-4xl font-riffic">Sign Up</CardTitle>
+          <CardDescription className="text-white text-base font-poppins">
             Yuk buat akun untuk segera memulai perjalananmu!
           </CardDescription>
         </CardHeader>
@@ -41,17 +42,17 @@ const singupPage = () => {
             <div className="space-y-8">
               <div className="flex w-full items-center gap-8">
                 <div className="flex flex-col space-y-3 w-full">
-                  <Label htmlFor="name">Namamu siapa?</Label>
-                  <Input id="name" type="name" className="bg-transparent" />
+                  <Label htmlFor="name" className="font-poppins">Namamu siapa?</Label>
+                  <Input id="name" type="name" className="bg-transparent" autoFocus/>
                 </div>
                 <div className="flex flex-col space-y-3 w-full">
-                  <Label htmlFor="email">Emailnya apa?</Label>
+                  <Label htmlFor="email" className="font-poppins">Emailnya apa?</Label>
                   <Input id="email" type="email" className="bg-transparent" />
                 </div>
               </div>
               <div className="flex items-center gap-8">
                 <div className="flex flex-col space-y-3 w-full">
-                  <Label htmlFor="date">Tanggal lahirnya berapa?</Label>
+                  <Label htmlFor="date" className="font-poppins">Tanggal lahirnya berapa?</Label>
                   <Input
                     id="date"
                     type="date"
@@ -59,7 +60,7 @@ const singupPage = () => {
                   />
                 </div>
                 <div className="flex flex-col space-y-3 w-full">
-                  <Label htmlFor="password">Buat password</Label>
+                  <Label htmlFor="password" className="font-poppins">Buat password</Label>
                   <Input
                     id="password"
                     type="password"
@@ -69,7 +70,7 @@ const singupPage = () => {
               </div>
               <div className="flex items-center gap-8">
                 <div className="flex flex-col space-y-3">
-                  <Label htmlFor="email">Email orangtuanya apa?</Label>
+                  <Label htmlFor="email" className="font-poppins">Email orangtuanya apa?</Label>
                   <Input
                     id="email"
                     type="email"
@@ -84,8 +85,8 @@ const singupPage = () => {
           <Button className="bg-[#FEAE33] text-black font-bold rounded-full px-10 hover:bg-[#E19323] transition-transform duration-300 transform hover:scale-110">
             Masuk
           </Button>
-          <p className="ml-5 text-sm">Sudah punya akun?</p>
-          <span className="font-bold text-sm cursor-pointer">&nbsp;Log In</span>
+          <p className="ml-5 text-sm font-poppins">Sudah punya akun?</p>
+          <Link href="/login" className="font-bold text-sm cursor-pointer font-poppins">&nbsp; Log In</Link>
         </CardFooter>
       </Card>
       <div className="flex  z-20 ">
