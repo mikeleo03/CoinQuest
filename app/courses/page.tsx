@@ -46,7 +46,7 @@ const CoursesPage = () => {
             </CardDescription>
           </CardContent>
           <CardFooter className="px-4 pb-4 flex justify-end">
-            <Link href="/">
+            <Link href="/course/1">
               <Button className="bg-[#FEAE33] text-black font-bold rounded-full px-10 hover:bg-[#E19323] transition-transform duration-200 transform hover:scale-105">
                 Explore
               </Button>
@@ -71,7 +71,7 @@ const CoursesPage = () => {
             </CardDescription>
           </CardContent>
           <CardFooter className="px-4 pb-4 flex justify-end">
-            <Link href="/">
+            <Link href="/course/1">
               <Button className="bg-[#FEAE33] text-black font-bold rounded-full px-10 hover:bg-[#E19323] transition-transform duration-200 transform hover:scale-105">
                 Explore
               </Button>
@@ -96,7 +96,7 @@ const CoursesPage = () => {
             </CardDescription>
           </CardContent>
           <CardFooter className="px-4 pb-4 flex justify-end">
-            <Link href="/">
+            <Link href="/course/1">
               <Button className="bg-[#FEAE33] text-black font-bold rounded-full px-10 hover:bg-[#E19323] transition-transform duration-200 transform hover:scale-105">
                 Explore
               </Button>
@@ -121,7 +121,7 @@ const CoursesPage = () => {
             </CardDescription>
           </CardContent>
           <CardFooter className="px-4 pb-4 flex justify-end">
-            <Link href="/">
+            <Link href="/course/1">
               <Button className="bg-[#FEAE33] text-black font-bold rounded-full px-10 hover:bg-[#E19323] transition-transform duration-200 transform hover:scale-105">
                 Explore
               </Button>
@@ -146,7 +146,7 @@ const CoursesPage = () => {
             </CardDescription>
           </CardContent>
           <CardFooter className="px-4 pb-4 flex justify-end">
-            <Link href="/">
+            <Link href="/course/1">
               <Button className="bg-[#FEAE33] text-black font-bold rounded-full px-10 hover:bg-[#E19323] transition-transform duration-200 transform hover:scale-105">
                 Explore
               </Button>
@@ -171,7 +171,7 @@ const CoursesPage = () => {
             </CardDescription>
           </CardContent>
           <CardFooter className="px-4 pb-4 flex justify-end">
-            <Link href="/">
+            <Link href="/course/1">
               <Button className="bg-[#FEAE33] text-black font-bold rounded-full px-10 hover:bg-[#E19323] transition-transform duration-200 transform hover:scale-105">
                 Explore
               </Button>
@@ -196,7 +196,7 @@ const CoursesPage = () => {
             </CardDescription>
           </CardContent>
           <CardFooter className="px-4 pb-4 flex justify-end">
-            <Link href="/">
+            <Link href="/course/1">
               <Button className="bg-[#FEAE33] text-black font-bold rounded-full px-10 hover:bg-[#E19323] transition-transform duration-200 transform hover:scale-105">
                 Explore
               </Button>
@@ -221,7 +221,7 @@ const CoursesPage = () => {
             </CardDescription>
           </CardContent>
           <CardFooter className="px-4 pb-4 flex justify-end">
-            <Link href="/">
+            <Link href="/course/1">
               <Button className="bg-[#FEAE33] text-black font-bold rounded-full px-10 hover:bg-[#E19323] transition-transform duration-200 transform hover:scale-105">
                 Explore
               </Button>
