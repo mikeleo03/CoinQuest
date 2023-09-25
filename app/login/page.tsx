@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import {
@@ -12,8 +12,38 @@ import {
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import Link from "next/link";
+import supabase from "../../utils/supabase";
+import { useRouter } from "next/navigation";
 
 const loginPage = () => {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const router = useRouter();
+
+  const handleSignUp = async () => {
+    await supabase.auth.signUp({
+      email,
+      password,
+      options: {
+        emailRedirectTo: `${location.origin}/auth/callback`,
+      },
+    });
+    router.refresh();
+  };
+
+  const handleSignIn = async () => {
+    await supabase.auth.signInWithPassword({
+      email,
+      password,
+    });
+    router.refresh();
+  };
+
+  const handleSignOut = async () => {
+    await supabase.auth.signOut();
+    router.refresh();
+  };
+
   return (
     <main className="flex justify-center items-center min-h-screen">
       {/* Background */}
