@@ -18,7 +18,7 @@ export async function GET(req: NextRequest) {
     }
 
     if (!course) {
-      return NextResponse.json({ error: "Course not found" }, { status: 404 });
+      return NextResponse.json({ error: "User not found" }, { status: 404 });
     }
 
     return NextResponse.json({ data: course }, { status: 200 });
