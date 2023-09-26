@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { useState } from "react";
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import {
@@ -14,8 +14,45 @@ import {
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
+import supabase from "../../../utils/supabase";
 
 const singupPage = () => {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const router = useRouter();
+
+  const handleEmailChange = (event: {
+    target: { value: React.SetStateAction<string> };
+  }) => {
+    setEmail(event.target.value);
+  };
+
+  const handlePasswordChange = (event: {
+    target: { value: React.SetStateAction<string> };
+  }) => {
+    setPassword(event.target.value);
+  };
+
+  const handleSignUp = async () => {
+    try {
+      const { data, error } = await supabase.auth.signUp({
+        email,
+        password,
+      });
+
+      if (error) {
+        console.error("Error signing up:", error.message);
+        return;
+      }
+
+      console.log("User signed up:", data);
+      router.push("/"); // Redirect to dashboard or another page upon successful sign-in
+    } catch (error) {
+      console.error("Error signing up:", error);
+    }
+  };
+
   return (
     <main className="flex justify-center items-center min-h-screen">
       {/* Background */}
@@ -52,7 +89,13 @@ const singupPage = () => {
                   <Label htmlFor="email" className="font-poppins">
                     Emailnya apa?
                   </Label>
-                  <Input id="email" type="email" className="bg-transparent" />
+                  <Input
+                    id="email"
+                    type="email"
+                    className="bg-transparent"
+                    value={email}
+                    onChange={handleEmailChange}
+                  />
                 </div>
               </div>
               <div className="flex items-center gap-8">
@@ -74,6 +117,8 @@ const singupPage = () => {
                     id="password"
                     type="password"
                     className="bg-transparent"
+                    value={password}
+                    onChange={handlePasswordChange}
                   />
                 </div>
               </div>
@@ -93,7 +138,10 @@ const singupPage = () => {
           </form>
         </CardContent>
         <CardFooter className="pt-3">
-          <Button className="bg-[#FEAE33] text-black font-bold rounded-full px-10 hover:bg-[#E19323] transition-transform duration-300 transform hover:scale-110">
+          <Button
+            className="bg-[#FEAE33] text-black font-bold rounded-full px-10 hover:bg-[#E19323] transition-transform duration-300 transform hover:scale-110"
+            onClick={handleSignUp}
+          >
             Masuk
           </Button>
           <p className="ml-5 text-sm font-poppins">Sudah punya akun?</p>

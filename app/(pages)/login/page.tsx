@@ -20,6 +20,7 @@ import { useRouter } from "next/navigation";
 const loginPage = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const router = useRouter();
 
   const handleEmailChange = (event: {
     target: { value: React.SetStateAction<string> };
@@ -33,19 +34,35 @@ const loginPage = () => {
     setPassword(event.target.value);
   };
 
-  const handleSubmit = async (event: { preventDefault: () => void }) => {
-    event.preventDefault();
+  const handleSignIn = async () => {
+    try {
+      const { data, error } = await supabase.auth.signInWithPassword({
+        email,
+        password,
+      });
 
-    // sends a sign up request to supabase email provider
-    await supabase.auth.signUp({
-      email,
-      password,
-      options: {
-        emailRedirectTo: `../../api/auth/callback`,
-      },
-    });
-    console.log("Submitted:", { email, password });
+      if (error) {
+        console.error("Error signing in:", error.message);
+        return;
+      }
+
+      console.log("User signed in:", data);
+      router.push("/"); // Redirect to dashboard or another page upon successful sign-in
+    } catch (error) {
+      console.error("Error signing in:", error);
+    }
   };
+
+  // const handleSubmit = async (event: { preventDefault: () => void }) => {
+  // //   event.preventDefault();
+
+  //   // sends a sign up request to supabase email provider
+  //   await supabase.auth.signInWithPassword({
+  //     email,
+  //     password,
+  //   });
+  //   console.log("Submitted:", { email, password });
+  // };
 
   return (
     <main className="flex justify-center items-center min-h-screen">
@@ -103,7 +120,7 @@ const loginPage = () => {
         <CardFooter className="pt-3">
           <Button
             type="submit"
-            onClick={handleSubmit}
+            onClick={handleSignIn}
             className="bg-[#FEAE33] text-black font-bold rounded-full px-10 hover:bg-[#E19323] transition-transform duration-300 transform hover:scale-110"
           >
             Masuk
