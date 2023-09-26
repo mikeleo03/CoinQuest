@@ -14,6 +14,12 @@ const goalPage = () => {
             className="fixed top-0 left-0 w-screen h-screen"
         />
 
+        <img
+            src="/assets/sky/stars.png"
+            alt="background stars"
+            className="fixed top-0 rotate-90 left-0 bg-repeat-x w-screen"
+        />
+
         {/* Navbar */}
         <Navbar />
 

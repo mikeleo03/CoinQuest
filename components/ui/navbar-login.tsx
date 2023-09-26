@@ -20,7 +20,7 @@ const navbar = () => {
                                     Goals
                                 </a>
                                 <a
-                                    href="/course"
+                                    href="/courses"
                                     className=" hover:scale-110 text-white px-5 py-2 rounded-md text-[24px] font-medium font-poppins items-center transition-transform duration-300"
                                 >
                                     Course
