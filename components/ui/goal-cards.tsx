@@ -46,6 +46,11 @@ const GoalCard = (props: Props) => {
             Pilih planet untuk menyelesaikan task
           </DialogDescription>
         </DialogHeader>
+        <img
+          src="/assets/main_envi.png"
+          alt="background image"
+          className="rotate-90 fixed left-56 top-8 justify-center items-center w-[500px] h-[700px] pb-20 pr-8"
+        />
         <div className="justify-center items-center">
           <img
               src="/assets/background.png"
@@ -53,6 +58,62 @@ const GoalCard = (props: Props) => {
               className="rotate-270 w-[1000px] h-[550px] rounded-xl"
           />
         </div>
+        <button className="transition-transform duration-200 transform hover:scale-125 fixed right-72 top-[7.5rem] justify-center items-center">
+          <img
+            src="/assets/planets/planet-fix-1.png"
+            alt="background image"
+            className="w-[80px] h-[80px]"
+          />
+        </button>
+        <button className="transition-transform duration-200 transform hover:scale-125 fixed right-[12rem] bottom-[16rem] justify-center items-center">
+          <img
+            src="/assets/planets/planet-fix-2.png"
+            alt="background image"
+            className="w-[80px] h-[80px]"
+          />
+        </button>
+        <button className="transition-transform duration-200 transform hover:scale-125 fixed right-[22rem] bottom-[3.5rem] justify-center items-center">
+          <img
+            src="/assets/planets/planet-fix-3.png"
+            alt="background image"
+            className="w-[80px] h-[80px]"
+          />
+        </button>
+        <button className="transition-transform duration-200 transform hover:scale-125 fixed left-[26.2rem] bottom-[10.25rem] justify-center items-center">
+          <img
+            src="/assets/planets/planet-fix-4.png"
+            alt="background image"
+            className="w-[80px] h-[80px]"
+          />
+        </button>
+        <button className="transition-transform duration-200 transform hover:scale-125 fixed right-[27rem] top-[15.5rem] justify-center items-center">
+          <img
+            src="/assets/planets/planet-fix-5.png"
+            alt="background image"
+            className="w-[80px] h-[80px]"
+          />
+        </button>
+        <button className="transition-transform duration-200 transform hover:scale-125 fixed left-[17.6rem] top-[10.4rem] justify-center items-center">
+          <img
+            src="/assets/planets/planet-fix-6.png"
+            alt="background image"
+            className="w-[80px] h-[80px]"
+          />
+        </button>
+        <button className="transition-transform duration-200 transform hover:scale-125 fixed left-[12.5rem] bottom-[13rem] justify-center items-center">
+          <img
+            src="/assets/planets/planet-fix-7.png"
+            alt="background image"
+            className="w-[80px] h-[80px]"
+          />
+        </button>
+        <button className="transition-transform duration-200 transform hover:scale-125 fixed left-[17.8rem] bottom-[3.8rem] justify-center items-center">
+          <img
+            src="/assets/planets/planet-fix-8.png"
+            alt="background image"
+            className="w-[80px] h-[80px]"
+          />
+        </button>
       </DialogContent>
     </Dialog>
   );
