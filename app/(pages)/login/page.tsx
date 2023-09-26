@@ -1,4 +1,6 @@
-// import React, { useState } from "react";
+"use client";
+
+import React, { useState } from "react";
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import {
@@ -16,33 +18,34 @@ import supabase from "../../../utils/supabase";
 import { useRouter } from "next/navigation";
 
 const loginPage = () => {
-  // const [email, setEmail] = useState("");
-  // const [password, setPassword] = useState("");
-  // const router = useRouter();
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
 
-  // const handleSignUp = async () => {
-  //   await supabase.auth.signUp({
-  //     email,
-  //     password,
-  //     options: {
-  //       emailRedirectTo: `${location.origin}/auth/callback`,
-  //     },
-  //   });
-  //   router.refresh();
-  // };
+  const handleEmailChange = (event: {
+    target: { value: React.SetStateAction<string> };
+  }) => {
+    setEmail(event.target.value);
+  };
 
-  // const handleSignIn = async () => {
-  //   await supabase.auth.signInWithPassword({
-  //     email,
-  //     password,
-  //   });
-  //   router.refresh();
-  // };
+  const handlePasswordChange = (event: {
+    target: { value: React.SetStateAction<string> };
+  }) => {
+    setPassword(event.target.value);
+  };
 
-  // const handleSignOut = async () => {
-  //   await supabase.auth.signOut();
-  //   router.refresh();
-  // };
+  const handleSubmit = async (event: { preventDefault: () => void }) => {
+    event.preventDefault();
+
+    // sends a sign up request to supabase email provider
+    await supabase.auth.signUp({
+      email,
+      password,
+      options: {
+        emailRedirectTo: `../../api/auth/callback`,
+      },
+    });
+    console.log("Submitted:", { email, password });
+  };
 
   return (
     <main className="flex justify-center items-center min-h-screen">
@@ -72,6 +75,8 @@ const loginPage = () => {
                   id="email"
                   type="email"
                   className="bg-transparent"
+                  value={email}
+                  onChange={handleEmailChange}
                   autoFocus
                 />
               </div>
@@ -83,6 +88,8 @@ const loginPage = () => {
                   <Input
                     id="password"
                     type="password"
+                    value={password}
+                    onChange={handlePasswordChange}
                     className="bg-transparent"
                   />
                   <span className="text-sm text-white cursor-pointer font-poppins">
@@ -94,7 +101,11 @@ const loginPage = () => {
           </form>
         </CardContent>
         <CardFooter className="pt-3">
-          <Button className="bg-[#FEAE33] text-black font-bold rounded-full px-10 hover:bg-[#E19323] transition-transform duration-300 transform hover:scale-110">
+          <Button
+            type="submit"
+            onClick={handleSubmit}
+            className="bg-[#FEAE33] text-black font-bold rounded-full px-10 hover:bg-[#E19323] transition-transform duration-300 transform hover:scale-110"
+          >
             Masuk
           </Button>
           <p className="ml-5 text-sm">Belum punya akun?</p>

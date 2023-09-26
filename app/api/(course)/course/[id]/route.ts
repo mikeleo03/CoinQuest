@@ -1,9 +1,16 @@
 import { NextRequest, NextResponse } from "next/server";
 import supabase from "@/utils/supabase";
+import { useSearchParams } from 'next/navigation'
 
 export async function GET(req: NextRequest) {
-    const queryParams = new URLSearchParams(req.url.split("?")[1]);
-    const courseId = queryParams.get("id");
+  const urlArr = req.url.split("/")
+  const courseId = urlArr[urlArr.length - 1];
+  console.log(courseId);
+
+  if (!courseId) {
+    // Handle the case where courseId is null (or not provided)
+    return NextResponse.json({ error: "Course ID is missing" }, { status: 400 });
+  }
 
   try {
     const { data: course, error } = await supabase

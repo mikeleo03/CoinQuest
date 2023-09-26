@@ -2,14 +2,15 @@ import { NextRequest, NextResponse } from "next/server";
 import supabase from "@/utils/supabase";
 
 export async function GET(req: NextRequest) {
-    const queryParams = new URLSearchParams(req.url.split("?")[1]);
-    const courseId = queryParams.get("id");
+  const urlArr = req.url.split("/")
+  const questId = urlArr[urlArr.length - 1];
+  console.log(questId);
 
   try {
     const { data: course, error } = await supabase
       .from('Quests')
       .select('*')
-      .eq('id', courseId)
+      .eq('id', questId)
       .single(); // Mengambil satu baris kursus berdasarkan ID
 
     if (error) {
