@@ -1,0 +1,32 @@
+[
+    {
+      "title": "Membeli game baru",
+      "status": true,
+      "price": "50.000"
+    },
+    {
+      "title": "Membeli baju",
+      "status": false,
+      "price": "275.000"
+    },
+    {
+      "title": "Membeli game baru",
+      "status": true,
+      "price": "50.000"
+    },
+    {
+      "title": "Membeli baju",
+      "status": false,
+      "price": "275.000"
+    },
+    {
+      "title": "Membeli game baru",
+      "status": true,
+      "price": "50.000"
+    },
+    {
+      "title": "Membeli baju",
+      "status": false,
+      "price": "275.000"
+    }
+  ]
