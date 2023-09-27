@@ -13,7 +13,7 @@ interface dataItem {
   desc: string;
 }
 
-const CoursePage: React.FC<CourseProps> = ({ course }) => {
+const CoursePage = () => {
   return (
     <main className="flex flex-col justify-start items-start overflow-hidden h-screen">
       {/* Background */}
