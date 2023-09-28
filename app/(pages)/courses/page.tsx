@@ -10,7 +10,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import Navbar from "@/components/ui/navbar-login";
+import Navbar from "@/components/ui/navbar";
 import Link from "next/link";
 
 interface dataCourse {

@@ -4,9 +4,14 @@ import supabase from "@/utils/supabase";
 
 export async function GET(req: NextRequest) {
   try {
+
+    const userId = req.headers.get('user-id');
+    console.log(userId)
+
     const { data, error } = await supabase
       .from('Goals')
-      .select('*');
+      .select('*')
+      .eq('id_user', userId);
 
     if (error) {
       console.error(error); // Log the error for debugging purposes
