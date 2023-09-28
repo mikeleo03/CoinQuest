@@ -39,6 +39,8 @@ const navbar = () => {
 
   const handleLogout = async (e: { preventDefault: () => void }) => {
     localStorage.clear();
+    window.location.reload();
+    window.location.href = "/";
   };
 
   return (

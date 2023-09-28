@@ -77,6 +77,16 @@ const GoalCard = (props: Props) => {
               />
             </button>
           </PopoverTrigger>
+          <PopoverContent className="w-80">
+            <div className="grid gap-4">
+              <h4 className="font-medium leading-none">Task 1</h4>
+              <p className="text-sm text-muted-foreground mb-2">
+                Berikut adalah beberapa task yang perlu diselesaikan :
+              </p>
+            </div>
+          </PopoverContent>
+        </Popover>
+        <Popover>
           <PopoverTrigger>
             <button className="transition-transform duration-200 transform hover:scale-125 fixed right-[12rem] bottom-[18rem] justify-center items-center">
               <img
@@ -87,6 +97,16 @@ const GoalCard = (props: Props) => {
               />
             </button>
           </PopoverTrigger>
+          <PopoverContent className="w-80">
+            <div className="grid gap-4">
+              <h4 className="font-medium leading-none">Task 2</h4>
+              <p className="text-sm text-muted-foreground mb-2">
+                Berikut adalah beberapa task yang perlu diselesaikan :
+              </p>
+            </div>
+          </PopoverContent>
+        </Popover>
+        <Popover>
           <PopoverTrigger>
             <button className="transition-transform duration-200 transform hover:scale-125 fixed right-[22rem] bottom-[6rem] justify-center items-center">
               <img
@@ -97,6 +117,16 @@ const GoalCard = (props: Props) => {
               />
             </button>
           </PopoverTrigger>
+          <PopoverContent className="w-80">
+            <div className="grid gap-4">
+              <h4 className="font-medium leading-none">Task 3</h4>
+              <p className="text-sm text-muted-foreground mb-2">
+                Berikut adalah beberapa task yang perlu diselesaikan :
+              </p>
+            </div>
+          </PopoverContent>
+        </Popover>
+        <Popover>
           <PopoverTrigger>
             <button className="transition-transform duration-200 transform hover:scale-125 fixed left-[26.2rem] bottom-[13rem] justify-center items-center">
               <img
@@ -107,6 +137,16 @@ const GoalCard = (props: Props) => {
               />
             </button>
           </PopoverTrigger>
+          <PopoverContent className="w-80">
+            <div className="grid gap-4">
+              <h4 className="font-medium leading-none">Task 4</h4>
+              <p className="text-sm text-muted-foreground mb-2">
+                Berikut adalah beberapa task yang perlu diselesaikan :
+              </p>
+            </div>
+          </PopoverContent>
+        </Popover>
+        <Popover>
           <PopoverTrigger>
             <button className="transition-transform duration-200 transform hover:scale-125 fixed right-[27rem] top-[15.5rem] justify-center items-center">
               <img
@@ -117,6 +157,16 @@ const GoalCard = (props: Props) => {
               />
             </button>
           </PopoverTrigger>
+          <PopoverContent className="w-80">
+            <div className="grid gap-4">
+              <h4 className="font-medium leading-none">Task 5</h4>
+              <p className="text-sm text-muted-foreground mb-2">
+                Berikut adalah beberapa task yang perlu diselesaikan :
+              </p>
+            </div>
+          </PopoverContent>
+        </Popover>
+        <Popover>
           <PopoverTrigger>
             <button className="transition-transform duration-200 transform hover:scale-125 fixed left-[17.6rem] top-[10.4rem] justify-center items-center">
               <img
@@ -127,6 +177,16 @@ const GoalCard = (props: Props) => {
               />
             </button>
           </PopoverTrigger>
+          <PopoverContent className="w-80">
+            <div className="grid gap-4">
+              <h4 className="font-medium leading-none">Task 6</h4>
+              <p className="text-sm text-muted-foreground mb-2">
+                Berikut adalah beberapa task yang perlu diselesaikan :
+              </p>
+            </div>
+          </PopoverContent>
+        </Popover>
+        <Popover>
           <PopoverTrigger>
             <button className="transition-transform duration-200 transform hover:scale-125 fixed left-[12.7rem] bottom-[15.5rem] justify-center items-center">
               <img
@@ -137,6 +197,16 @@ const GoalCard = (props: Props) => {
               />
             </button>
           </PopoverTrigger>
+          <PopoverContent className="w-80">
+            <div className="grid gap-4">
+              <h4 className="font-medium leading-none">Task 7</h4>
+              <p className="text-sm text-muted-foreground mb-2">
+                Berikut adalah beberapa task yang perlu diselesaikan :
+              </p>
+            </div>
+          </PopoverContent>
+        </Popover>
+        <Popover>
           <PopoverTrigger>
             <button className="transition-transform duration-200 transform hover:scale-125 fixed left-[17.8rem] bottom-[7rem] justify-center items-center">
               <img
@@ -149,9 +219,9 @@ const GoalCard = (props: Props) => {
           </PopoverTrigger>
           <PopoverContent className="w-80">
             <div className="grid gap-4">
-              <h4 className="font-medium leading-none">Task X</h4>
-              <p className="text-sm text-muted-foreground">
-                Berikut adalah beberapa task yang perlu diselesaikan
+              <h4 className="font-medium leading-none">Task 8</h4>
+              <p className="text-sm text-muted-foreground mb-2">
+                Berikut adalah beberapa task yang perlu diselesaikan :
               </p>
             </div>
           </PopoverContent>
