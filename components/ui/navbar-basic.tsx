@@ -8,7 +8,7 @@ const navbar = () => {
                     <div className="flex items-center justify-between h-24">
                         <div className="flex-shrink-0">
                             <a href="/">
-                                <img className="h-12 w-auto" src="/assets/logo.png" alt="logo" />
+                                <img className="h-12 w-auto" src="/assets/logo.png" alt="logo" draggable='false' />
                             </a>
                         </div>
                         <div className="items-center">

@@ -38,12 +38,14 @@ const goalPage = () => {
                 src="/assets/background.png"
                 alt="background image"
                 className="fixed top-0 left-0 w-screen h-screen"
+                draggable='false'
             />
 
             <img
                 src="/assets/sky/stars.png"
                 alt="background stars"
                 className="fixed top-0 rotate-90 left-0 bg-repeat-x w-screen"
+                draggable='false'
             />
 
             {/* Navbar */}

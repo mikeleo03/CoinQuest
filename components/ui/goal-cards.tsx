@@ -31,6 +31,7 @@ const GoalCard = (props: Props) => {
             src="/assets/trophy.png"
             alt="image"
             className="h-24"
+            draggable='false'
           />
         </div>
         <div className="pt-6 pb-0 px-10">
@@ -54,6 +55,7 @@ const GoalCard = (props: Props) => {
         <img
           src="/assets/main_envi.png"
           alt="background image"
+          draggable='false'
           className="rotate-90 fixed left-56 top-8 justify-center items-center w-[500px] h-[700px] pb-20 pr-8"
         />
         <div className="justify-center items-center">
@@ -61,6 +63,7 @@ const GoalCard = (props: Props) => {
               src="/assets/background.png"
               alt="background image"
               className="rotate-270 w-[1000px] h-[550px] rounded-xl"
+              draggable='false'
           />
         </div>
         <Popover>
@@ -70,6 +73,7 @@ const GoalCard = (props: Props) => {
                 src="/assets/planets/planet-fix-1.png"
                 alt="background image"
                 className="w-[80px] h-[80px]"
+                draggable='false'
               />
             </button>
           </PopoverTrigger>
@@ -79,6 +83,7 @@ const GoalCard = (props: Props) => {
                 src="/assets/planets/planet-fix-2.png"
                 alt="background image"
                 className="w-[80px] h-[80px]"
+                draggable='false'
               />
             </button>
           </PopoverTrigger>
@@ -88,6 +93,7 @@ const GoalCard = (props: Props) => {
                 src="/assets/planets/planet-fix-3.png"
                 alt="background image"
                 className="w-[80px] h-[80px]"
+                draggable='false'
               />
             </button>
           </PopoverTrigger>
@@ -97,6 +103,7 @@ const GoalCard = (props: Props) => {
                 src="/assets/planets/planet-fix-4.png"
                 alt="background image"
                 className="w-[80px] h-[80px]"
+                draggable='false'
               />
             </button>
           </PopoverTrigger>
@@ -106,6 +113,7 @@ const GoalCard = (props: Props) => {
                 src="/assets/planets/planet-fix-5.png"
                 alt="background image"
                 className="w-[80px] h-[80px]"
+                draggable='false'
               />
             </button>
           </PopoverTrigger>
@@ -115,6 +123,7 @@ const GoalCard = (props: Props) => {
                 src="/assets/planets/planet-fix-6.png"
                 alt="background image"
                 className="w-[80px] h-[80px]"
+                draggable='false'
               />
             </button>
           </PopoverTrigger>
@@ -124,6 +133,7 @@ const GoalCard = (props: Props) => {
                 src="/assets/planets/planet-fix-7.png"
                 alt="background image"
                 className="w-[80px] h-[80px]"
+                draggable='false'
               />
             </button>
           </PopoverTrigger>
@@ -133,6 +143,7 @@ const GoalCard = (props: Props) => {
                 src="/assets/planets/planet-fix-8.png"
                 alt="background image"
                 className="w-[80px] h-[80px]"
+                draggable='false'
               />
             </button>
           </PopoverTrigger>

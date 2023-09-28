@@ -16,6 +16,7 @@ const navbar = () => {
                   className="h-12 w-auto"
                   src="/assets/logo.png"
                   alt="logo"
+                  draggable='false'
                 />
               </a>
             </div>
@@ -42,6 +43,7 @@ const navbar = () => {
                       <img
                         className="h-12 w-auto"
                         src="/assets/default_profpic.png"
+                        draggable='false'
                       />
                     </div>
                     <div className="">
@@ -54,7 +56,7 @@ const navbar = () => {
                     </div>
                   </div>
                 </a>
-                <a className="inline-flex items-center px-4 py-2 border border-transparent text-base font-medium rounded-md text-white bg-red-500 hover:bg-red-600">
+                <a className="inline-flex items-center px-4 py-2 border border-transparent text-base font-medium rounded-md text-white bg-red-500 hover:bg-red-600 transition-transform duration-300 transform hover:scale-110">
                   <LogOut size={30} className="text-white" />
                 </a>
               </div>
