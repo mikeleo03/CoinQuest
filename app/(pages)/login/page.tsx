@@ -17,9 +17,9 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 
 const loginPage = () => {
+  const router = useRouter();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const router = useRouter();
 
   const handleEmailChange = (event: {
     target: { value: React.SetStateAction<string> };
@@ -61,6 +61,9 @@ const loginPage = () => {
         // Save the ID to local storage
         localStorage.setItem("session", userId);
         console.log("User ID saved to local storage:", userId);
+
+        // Use the useRouter hook to navigate to the home page
+        router.push("/"); // Redirect to the home page
       } else {
         // Handle error response here
         console.error("API call failed");
