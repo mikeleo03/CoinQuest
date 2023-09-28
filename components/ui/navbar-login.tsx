@@ -1,7 +1,8 @@
-"use client"
+"use client";
 
 import React, { useState, useEffect } from "react";
 import { LogOut } from "lucide-react";
+import Link from "next/link";
 
 const navbar = () => {
   const [user, setUser] = useState("");
@@ -9,33 +10,36 @@ const navbar = () => {
   const [profpic, setProfpic] = useState("");
 
   useEffect(() => {
-      // Get the value from local storage
-      const userId = localStorage.getItem('session');
+    // Get the value from local storage
+    const userId = localStorage.getItem("session");
 
-      // Check if the value exists
-      if (userId !== null) {
-          console.log('Value from local storage:', userId);
-          fetch(`/api/user/${userId}`, {
-              method: "GET",
-              headers: {
-                  "Content-type": "application/json; charset=UTF-8",
-                  'user-id': userId
-              }
-          })
-              .then((res) => res.json())
-              .then((data) => {
-                  // Update state
-                  console.log(data);
-                  setUser(data.data.name);
-                  setCoin(data.data.coin);
-                  setProfpic(data.data.profpic);
-              });
-      } else {
-          console.log('Value not found in local storage');
-          // ini redirect ke login
-      }
-
+    // Check if the value exists
+    if (userId !== null) {
+      console.log("Value from local storage:", userId);
+      fetch(`/api/user/${userId}`, {
+        method: "GET",
+        headers: {
+          "Content-type": "application/json; charset=UTF-8",
+          "user-id": userId,
+        },
+      })
+        .then((res) => res.json())
+        .then((data) => {
+          // Update state
+          console.log(data);
+          setUser(data.data.name);
+          setCoin(data.data.coin);
+          setProfpic(data.data.profpic);
+        });
+    } else {
+      console.log("Value not found in local storage");
+      // ini redirect ke login
+    }
   }, []);
+
+  const handleLogout = async (e: { preventDefault: () => void }) => {
+    localStorage.clear();
+  };
 
   return (
     <div>
@@ -51,7 +55,7 @@ const navbar = () => {
                   className="h-12 w-auto"
                   src="/assets/logo.png"
                   alt="logo"
-                  draggable='false'
+                  draggable="false"
                 />
               </a>
             </div>
@@ -79,13 +83,13 @@ const navbar = () => {
                         <img
                           className="h-12 w-auto"
                           src={profpic}
-                          draggable='false'
+                          draggable="false"
                         />
                       ) : (
                         <img
                           className="h-12 w-auto"
                           src="/assets/default_profpic.png"
-                          draggable='false'
+                          draggable="false"
                         />
                       )}
                     </div>
@@ -99,9 +103,13 @@ const navbar = () => {
                     </div>
                   </div>
                 </a>
-                <a className="inline-flex items-center px-4 py-2 border border-transparent text-base font-medium rounded-md text-white bg-red-500 hover:bg-red-600 transition-transform duration-300 transform hover:scale-110">
+                <Link
+                  className="inline-flex items-center px-4 py-2 border border-transparent text-base font-medium rounded-md text-white bg-red-500 hover:bg-red-600 transition-transform duration-300 transform hover:scale-110"
+                  href="/"
+                  onClick={handleLogout}
+                >
                   <LogOut size={30} className="text-white" />
-                </a>
+                </Link>
               </div>
             </div>
           </div>
