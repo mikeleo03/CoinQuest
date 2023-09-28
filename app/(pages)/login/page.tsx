@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import {
@@ -14,7 +14,6 @@ import {
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import Link from "next/link";
-import supabase from "../../../utils/supabase";
 import { useRouter } from "next/navigation";
 
 const loginPage = () => {
@@ -34,35 +33,43 @@ const loginPage = () => {
     setPassword(event.target.value);
   };
 
-  const handleSignIn = async () => {
+  const handleSubmit = async (e: { preventDefault: () => void }) => {
+    e.preventDefault();
+
     try {
-      const { data, error } = await supabase.auth.signInWithPassword({
-        email,
-        password,
+      const response = await fetch("/api/all-user", {
+        method: "POST", // or 'GET' depending on your API
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          email: email,
+          password: password,
+        }),
       });
 
-      if (error) {
-        console.error("Error signing in:", error.message);
-        return;
-      }
+      if (response.ok) {
+        // Handle a successful response here
+        const data = await response.json();
 
-      console.log("User signed in:", data);
-      router.push("/"); // Redirect to dashboard or another page upon successful sign-in
+        // Now, you can work with the JSON data and the saved ID
+        console.log("API call successful. Response data:", data);
+        // Extract the ID from the response data
+        const userId = data.data.id;
+        console.log(userId);
+
+        // Save the ID to local storage
+        localStorage.setItem("session", userId);
+        console.log("User ID saved to local storage:", userId);
+      } else {
+        // Handle error response here
+        console.error("API call failed");
+      }
     } catch (error) {
-      console.error("Error signing in:", error);
+      // Handle network or other errors here
+      console.error("Network error", error);
     }
   };
-
-  // const handleSubmit = async (event: { preventDefault: () => void }) => {
-  // //   event.preventDefault();
-
-  //   // sends a sign up request to supabase email provider
-  //   await supabase.auth.signInWithPassword({
-  //     email,
-  //     password,
-  //   });
-  //   console.log("Submitted:", { email, password });
-  // };
 
   return (
     <main className="flex justify-center items-center min-h-screen">
@@ -120,7 +127,7 @@ const loginPage = () => {
         <CardFooter className="pt-3">
           <Button
             type="submit"
-            onClick={handleSignIn}
+            onClick={handleSubmit}
             className="bg-[#FEAE33] text-black font-bold rounded-full px-10 hover:bg-[#E19323] transition-transform duration-300 transform hover:scale-110"
           >
             Masuk
