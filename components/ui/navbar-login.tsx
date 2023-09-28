@@ -1,7 +1,42 @@
-import React from "react";
+"use client"
+
+import React, { useState, useEffect } from "react";
 import { LogOut } from "lucide-react";
 
 const navbar = () => {
+  const [user, setUser] = useState("");
+  const [coin, setCoin] = useState(0);
+  const [profpic, setProfpic] = useState("");
+
+  useEffect(() => {
+      // Get the value from local storage
+      const userId = localStorage.getItem('session');
+
+      // Check if the value exists
+      if (userId !== null) {
+          console.log('Value from local storage:', userId);
+          fetch(`/api/user/${userId}`, {
+              method: "GET",
+              headers: {
+                  "Content-type": "application/json; charset=UTF-8",
+                  'user-id': userId
+              }
+          })
+              .then((res) => res.json())
+              .then((data) => {
+                  // Update state
+                  console.log(data);
+                  setUser(data.data.name);
+                  setCoin(data.data.coin);
+                  setProfpic(data.data.profpic);
+              });
+      } else {
+          console.log('Value not found in local storage');
+          // ini redirect ke login
+      }
+
+  }, []);
+
   return (
     <div>
       <nav
@@ -40,18 +75,26 @@ const navbar = () => {
                 >
                   <div className="flex flex-row space-x-3">
                     <div className="">
-                      <img
-                        className="h-12 w-auto"
-                        src="/assets/default_profpic.png"
-                        draggable='false'
-                      />
+                      {profpic ? (
+                        <img
+                          className="h-12 w-auto"
+                          src={profpic}
+                          draggable='false'
+                        />
+                      ) : (
+                        <img
+                          className="h-12 w-auto"
+                          src="/assets/default_profpic.png"
+                          draggable='false'
+                        />
+                      )}
                     </div>
                     <div className="">
                       <div className="text-[20px] font-riffic text-white">
-                        Michael
+                        {user}
                       </div>
                       <div className="text-[16px] font-poppins text-white">
-                        Level : 3
+                        Coin : {coin}
                       </div>
                     </div>
                   </div>
