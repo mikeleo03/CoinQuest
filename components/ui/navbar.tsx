@@ -1,21 +1,34 @@
 "use client"
 
-import React from "react";
+import React, { useEffect, useState } from "react";
 import NavbarLogin from "./navbar-login";
 import NavbarBasic from "./navbar-basic";
 
-const navbarmain = () => {
-    // Get the value from local storage
-    const userId = localStorage.getItem('session');
+const Navbarmain = () => {
+    // Define a state variable to determine which component to render
+    const [isLoggedIn, setIsLoggedIn] = useState(false);
 
-    // Check if the value exists
-    if (userId !== null) {
-        console.log('Value from local storage:', userId);
-        return (<NavbarLogin></NavbarLogin>);
-    } else {
-        console.log('Value not found in local storage');
-        return (<NavbarBasic></NavbarBasic>);
-    }
+    useEffect(() => {
+        // Get the value from local storage
+        const userId = localStorage.getItem('session');
+
+        // Check if the value exists
+        if (userId !== null) {
+            console.log('Value from local storage:', userId);
+            // Set the state variable to true if the value exists
+            setIsLoggedIn(true);
+        } else {
+            console.log('Value not found in local storage');
+            // Set the state variable to false if the value doesn't exist
+            setIsLoggedIn(false);
+        }
+    }, []);
+
+    return (
+        <div>
+            {isLoggedIn ? <NavbarLogin /> : <NavbarBasic />}
+        </div>
+    );
 }
 
-export default navbarmain;
+export default Navbarmain;
