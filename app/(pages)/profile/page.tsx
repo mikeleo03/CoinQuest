@@ -1,27 +1,53 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Navbar from "@/components/ui/navbar";
 import { Pencil } from "lucide-react";
 import { Input } from "@/components/ui/input";
-import { Calendar as CalendarIcon } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 const page = () => {
   const [isEditing, setIsEditing] = useState(false);
-  const [inputUsername, setInputUsername] = useState("Michael");
-  const [inputEmail, setInputEmail] = useState("michael01@example.com");
-  const [inputParentEmail, setInputParentEmail] = useState(
-    "ferdisusanto@example.com"
-  );
-  const [inputDate, setInputDate] = useState("20 Maret 2016");
+  const [inputUsername, setInputUsername] = useState("");
+  const [inputEmail, setInputEmail] = useState("");
+  const [inputParentEmail, setInputParentEmail] = useState("");
+  const [inputDate, setInputDate] = useState("");
+  const [originalUsername, setOriginalUsername] = useState("");
+  const [originalEmail, setOriginalEmail] = useState("");
+  const [originalParentEmail, setOriginalParentEmail] = useState("");
+  const [originalDate, setOriginalDate] = useState("");
+  const [coin, setCoin] = useState(0);
 
-  const [originalUsername, setOriginalUsername] = useState("Michael");
-  const [originalEmail, setOriginalEmail] = useState("michael01@example.com");
-  const [originalParentEmail, setOriginalParentEmail] = useState(
-    "ferdisusanto@example.com"
-  );
-  const [originalDate, setOriginalDate] = useState("20 Maret 2016");
+  useEffect(() => {
+    // Get the value from local storage
+    const userId = localStorage.getItem('session');
+
+    // Check if the value exists
+    if (userId !== null) {
+        console.log('Value from local storage:', userId);
+        fetch(`/api/user/${userId}`, {
+            method: "GET",
+            headers: {
+                "Content-type": "application/json; charset=UTF-8",
+                'user-id': userId
+            }
+        })
+            .then((res) => res.json())
+            .then((data) => {
+                // Update state
+                console.log(data);
+                setInputUsername(data.data.name);
+                setInputEmail(data.data.email);
+                setInputParentEmail(data.data.parent_email);
+                setInputDate(data.data.birthdate.toString());
+                setCoin(data.data.coin);
+                // setProfpic(data.data.profpic);
+            });
+    } else {
+        console.log('Value not found in local storage');
+        // ini redirect ke login
+    }
+  }, []);
 
   const handleEditClick = () => {
     if (isEditing) {
@@ -83,7 +109,7 @@ const page = () => {
               </h1>
             )}
 
-            <h1 className="font-poppins text-lg text-white">Level : 3</h1>
+            <h1 className="font-poppins text-lg text-white">Coin : {coin}</h1>
           </div>
         </div>
 
@@ -149,10 +175,6 @@ const page = () => {
           <div>
             <h1 className="font-riffic text-4xl text-white">Stats</h1>
             <div className="px-10 py-5 space-y-3 text-white">
-              <div className="flex space-x-5 items-center">
-                <h1 className="font-riffic text-2xl">Poin : </h1>
-                <h1 className="font-poppins text-lg ">1555 poin </h1>
-              </div>
               <div className="flex space-x-5">
                 <h1 className="font-riffic text-2xl">Misi Selesai : </h1>
                 <h1 className="font-poppins text-lg">10 misi </h1>
