@@ -133,6 +133,17 @@ const singupPage = () => {
                     className="bg-transparent text-white "
                   />
                 </div>
+                <div className="flex flex-col space-y-3">
+                    <Label htmlFor="parent-photo" className="font-poppins">
+                      Foto orangtua (untuk verifikasi)
+                    </Label>
+                    <Input
+                      id="parent-photo"
+                      type="file"
+                      accept=".png,.jpg,.jpeg"
+                      className="bg-transparent text-white "
+                  />
+                </div>
               </div>
             </div>
           </form>
