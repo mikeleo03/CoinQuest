@@ -14,6 +14,11 @@ import {
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import Link from "next/link";
+/* import { ToastContainer } from 'react-toastify';
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css'; */
+import { Toaster } from "@/components/ui/toaster"
+import { useToast } from "@/components/ui/use-toast"
 
 const singupPage = () => {
   const [name, setName] = useState("");
@@ -22,6 +27,7 @@ const singupPage = () => {
   const [password, setPassword] = useState("");
   const [parentEmail, setParentEmail] = useState("");
   const [parentPhoto, setParentPhoto] = useState("");
+  const { toast } = useToast();
 
   const handleNameChange = (event: {
     target: { value: React.SetStateAction<string> };
@@ -95,7 +101,13 @@ const singupPage = () => {
         console.log("User ID saved to local storage:", userId);
       } else {
         // Handle error response here
-        console.error("API call failed");
+        /* toast.error('Registrasi tidak berhasil :( periksa kembali data masukan kamu', {
+          position: toast.POSITION.TOP_RIGHT
+        }); */
+        toast({
+          title: "Registrasi tidak berhasil :(",
+          description: "Periksa kembali data masukan kamu ya!",
+        })
       }
     } catch (error) {
       // Handle network or other errors here
@@ -113,6 +125,8 @@ const singupPage = () => {
       />
 
       {/* Signup */}
+      {/* <ToastContainer /> */}
+      <Toaster />
       <Card className="w-fit z-10 p-11 border-none bg-gray-400 bg-clip-padding backdrop-filter backdrop-blur-none bg-opacity-30 border border-gray-100 text-white rounded-3xl">
         <CardHeader>
           <CardTitle className="text-4xl font-riffic">Sign Up</CardTitle>
