@@ -3,7 +3,6 @@
 import React from "react";
 
 import { Button } from "@/components/ui/button";
-import Link from "next/link";
 import { Separator } from "@/components/ui/separator";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Undo2 } from "lucide-react";
@@ -39,12 +38,6 @@ const CoursePage = () => {
         <h1 className="text-4xl text-white font-riffic tracking-wide">
           Ini Judul Course
         </h1>
-        {/* <Link
-          href="/courses"
-          className="z-10 text-lg text-white font-poppins tracking-wide underline hover:opacity-80"
-        >
-          Kembali ke daftar courses
-        </Link> */}
         <Button
           className="flex bg-[#FEAE33] text-black font-bold rounded-full hover:bg-[#E19323] transition-transform duration-300 transform hover:scale-11 mr-3"
           onClick={redirectToCoursesPage}

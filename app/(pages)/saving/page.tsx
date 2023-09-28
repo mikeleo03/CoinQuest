@@ -9,13 +9,13 @@ const SavingsPage = () => {
   const [savingsBalance, setSavingsBalance] = useState(500000); // Contoh saldo awal
 
   // Fungsi untuk menambah tabungan
-  const depositSavings = (amount) => {
+  const depositSavings = (amount: number) => {
     // Logika penambahan tabungan
     setSavingsBalance(savingsBalance + amount);
   };
 
   // Fungsi untuk menarik tabungan
-  const withdrawSavings = (amount) => {
+  const withdrawSavings = (amount: number) => {
     // Pastikan saldo cukup sebelum penarikan
     if (savingsBalance >= amount) {
       // Logika penarikan tabungan
