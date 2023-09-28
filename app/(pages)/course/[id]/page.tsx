@@ -21,6 +21,7 @@ const CoursePage = () => {
         src="/assets/background.png"
         alt="background image"
         className="fixed top-0 left-0 w-screen h-screen"
+        draggable='false'
       />
 
       <div className="w-screen flex flex-row justify-between items-center px-8 pt-8 pb-5 h-1/6">
