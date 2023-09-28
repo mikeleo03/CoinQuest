@@ -6,7 +6,11 @@ const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
   title: "CoinQuest",
-  description: "CoinQuest is a WebApp which provide financial education game-course-based learning for kids",
+  description:
+    "CoinQuest is a WebApp which provide financial education game-course-based learning for kids",
+  icons: {
+    icon: "/icon.png",
+  },
 };
 
 export default function RootLayout({
