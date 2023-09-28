@@ -20,32 +20,32 @@ const page = () => {
 
   useEffect(() => {
     // Get the value from local storage
-    const userId = localStorage.getItem('session');
+    const userId = localStorage.getItem("session");
 
     // Check if the value exists
     if (userId !== null) {
-        console.log('Value from local storage:', userId);
-        fetch(`/api/user/${userId}`, {
-            method: "GET",
-            headers: {
-                "Content-type": "application/json; charset=UTF-8",
-                'user-id': userId
-            }
-        })
-            .then((res) => res.json())
-            .then((data) => {
-                // Update state
-                console.log(data);
-                setInputUsername(data.data.name);
-                setInputEmail(data.data.email);
-                setInputParentEmail(data.data.parent_email);
-                setInputDate(data.data.birthdate.toString());
-                setCoin(data.data.coin);
-                // setProfpic(data.data.profpic);
-            });
+      console.log("Value from local storage:", userId);
+      fetch(`/api/user/${userId}`, {
+        method: "GET",
+        headers: {
+          "Content-type": "application/json; charset=UTF-8",
+          "user-id": userId,
+        },
+      })
+        .then((res) => res.json())
+        .then((data) => {
+          // Update state
+          console.log(data);
+          setInputUsername(data.data.name);
+          setInputEmail(data.data.email);
+          setInputParentEmail(data.data.parent_email);
+          setInputDate(data.data.birthdate.toString());
+          setCoin(data.data.coin);
+          // setProfpic(data.data.profpic);
+        });
     } else {
-        console.log('Value not found in local storage');
-        // ini redirect ke login
+      console.log("Value not found in local storage");
+      // ini redirect ke login
     }
   }, []);
 
@@ -182,6 +182,10 @@ const page = () => {
               <div className="flex space-x-5">
                 <h1 className="font-riffic text-2xl">Hadiah : </h1>
                 <h1 className="font-poppins text-lg">3 hadiah </h1>
+              </div>
+              <div className="flex space-x-5">
+                <h1 className="font-riffic text-2xl">Tabungan : </h1>
+                <h1 className="font-poppins text-lg">Rp500.000,00 </h1>
               </div>
             </div>
           </div>
