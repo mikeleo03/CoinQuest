@@ -26,8 +26,8 @@ const goalPage = () => {
             .then((res) => res.json())
             .then((data) => {
                 // Update state
-                console.log(data);
-                setListGoals(data);
+                console.log(data.data);
+                setListGoals(data.data);
             });
     }, [listGoals]);
 
@@ -56,15 +56,17 @@ const goalPage = () => {
                 </h1>
 
                 <div className="flex flex-row w-full justify-center items-center text-center">
-                    <Slider options={{ align: "center" }}>
-                        {listGoals ? (listGoals.map((goal, i) => (
-                            <div key={i} className="flex-[0_0_90%] md:flex-[0_0_50%]">
-                                <GoalCard id={goal.id} title={goal.title} desc={goal.desc} price={goal.price} is_done={goal.is_done} />
-                            </div>
-                        ))) : (
-                            <h1>Tidak ada goals saat ini.</h1>
-                        )}
-                    </Slider>
+                    {listGoals ? (
+                        <Slider options={{ align: "center" }}>
+                            {listGoals.map((goal, i) => (
+                                <div key={i} className="flex-[0_0_90%] md:flex-[0_0_50%]">
+                                    <GoalCard id={goal.id} title={goal.title} desc={goal.desc} price={goal.price} is_done={goal.is_done} />
+                                </div>))
+                            }
+                        </Slider>
+                    ) : (
+                        <div className="z-10 text-4xl">Tidak ada goals saat ini.</div>
+                    )}
                 </div>
             </div>
         </main>
