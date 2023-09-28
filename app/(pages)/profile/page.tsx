@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
-import Navbar from "@/components/ui/navbar-login";
+import Navbar from "@/components/ui/navbar";
 import { Pencil } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { Calendar as CalendarIcon } from "lucide-react";
