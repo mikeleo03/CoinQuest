@@ -110,7 +110,7 @@ const CoursePage = () => {
         <div className="w-fit h-5/6 ml-3 bg-white rounded-xl backdrop-filter backdrop-blur-none bg-opacity-60 z-10 pt-5 px-8">
           <ScrollArea className="h-full">
             <div className="h-full overflow-y-auto px-1">
-              <h1 className="text-3xl font-riffic tracking-wide pb-6">
+              <h1 className="text-4xl font-poppins font-semibold tracking-wide pb-6">
                 Ini Judul Subcourse 1
               </h1>
               <div className="flex justify-center items-center py-3">
@@ -120,7 +120,7 @@ const CoursePage = () => {
                   title="Video Player"
                 ></iframe>
               </div>
-              <p className="font-bold font-poppins text-lg">
+              <p className="mt-3 font-md font-poppins text-lg">
                 Lorem ipsum dolor sit amet consectetur adipisicing elit. Veniam
                 eius quaerat nihil nostrum quas. Neque asperiores beatae a
                 facere iure vero autem architecto, totam itaque voluptas fugiat?
