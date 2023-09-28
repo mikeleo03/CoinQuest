@@ -25,18 +25,29 @@ const CoursesPage = () => {
   const [listCourse, setListCourse] = useState<dataCourse[]>([]);
 
   useEffect(() => {
-    fetch("/api/all-course", {
-      method: "GET",
-      headers: {
-        "Content-type": "application/json; charset=UTF-8",
-      },
-    })
-      .then((res) => res.json())
-      .then((data) => {
-        // Update state
-        setListCourse(data.data);
+    // Get the value from local storage
+    const userId = localStorage.getItem('session');
+
+    // Check if the value exists
+    if (userId !== null) {
+      console.log('Value from local storage:', userId);
+      fetch("/api/all-course", {
+        method: "GET",
+        headers: {
+            "Content-type": "application/json; charset=UTF-8",
+            'user-id': userId
+        }
+      })
+        .then((res) => res.json())
+        .then((data) => {
+          // Update state
+          setListCourse(data.data);
       });
-  }, [listCourse]);
+    } else {
+      console.log('Value not found in local storage');
+      // ini redirect ke login
+    }
+  }, []);
 
   return (
     <main className="flex w-full min-h-screen">
