@@ -1,15 +1,35 @@
-import React from "react";
+"use client"
+
+import React, { useState, useEffect } from "react";
 import Navbar from "@/components/ui/navbar-login";
 import Slider from "@/components/ui/slider";
 import GoalCard from "@/components/ui/goal-cards";
-import testimonials from "@/data/data.json";
 
-interface goalData {
-    
+interface dataGoals {
+    id: number;
+    title: string;
+    desc: string;
+    price: number;
+    is_done: boolean;
 }
 
 const goalPage = () => {
+    const [listGoals, setListGoals] = useState<dataGoals[]>([]);
 
+    useEffect(() => {
+        fetch("/api/all-goal", {
+            method: "GET",
+            headers: {
+                "Content-type": "application/json; charset=UTF-8"
+            }
+        })
+            .then((res) => res.json())
+            .then((data) => {
+                // Update state
+                console.log(data);
+                setListGoals(data);
+            });
+    }, [listGoals]);
 
     return (
         <main className="flex min-h-screen w-full">
@@ -37,11 +57,13 @@ const goalPage = () => {
 
                 <div className="flex flex-row w-full justify-center items-center text-center">
                     <Slider options={{ align: "center" }}>
-                        {testimonials.map((testimonial, i) => (
+                        {listGoals ? (listGoals.map((goal, i) => (
                             <div key={i} className="flex-[0_0_90%] md:flex-[0_0_50%]">
-                                <GoalCard {...testimonial} />
+                                <GoalCard id={goal.id} title={goal.title} desc={goal.desc} price={goal.price} is_done={goal.is_done} />
                             </div>
-                        ))}
+                        ))) : (
+                            <h1>Tidak ada goals saat ini.</h1>
+                        )}
                     </Slider>
                 </div>
             </div>

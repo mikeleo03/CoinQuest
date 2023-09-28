@@ -15,9 +15,11 @@ import {
 } from "@/components/ui/popover"
 
 type Props = {
+  id: number;
   title: string;
-  status: boolean;
-  price: string;
+  desc: string;
+  price: number;
+  is_done: boolean;
 };
 
 const GoalCard = (props: Props) => {
@@ -33,7 +35,7 @@ const GoalCard = (props: Props) => {
         </div>
         <div className="pt-6 pb-0 px-10">
           <h2 className="text-4xl font-semibold font-poppins">{props.title}</h2>
-          <p className="mt-2 text-xl font-poppins">{props.status ? "Sudah diselesaikan" : "Belum diselesaikan"}</p>
+          <p className="mt-2 text-xl font-poppins">{props.is_done ? "Sudah diselesaikan" : "Belum diselesaikan"}</p>
           <p className="mt-2 font-poppins">{props.price}</p>
         </div>
         <div className="flex py-8 pt-6 justify-center items-center">
