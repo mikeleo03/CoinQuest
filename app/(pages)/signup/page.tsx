@@ -14,13 +14,29 @@ import {
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
-import supabase from "../../../utils/supabase";
 
 const singupPage = () => {
+  const [name, setName] = useState("");
+  const [birthdate, setBirthdate] = useState(new Date());
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const router = useRouter();
+  const [parentEmail, setParentEmail] = useState("");
+  const [parentPhoto, setParentPhoto] = useState("");
+
+  const handleNameChange = (event: {
+    target: { value: React.SetStateAction<string> };
+  }) => {
+    setName(event.target.value);
+  };
+
+  const handleBirthdateChange = (
+    event: React.ChangeEvent<HTMLInputElement>
+  ) => {
+    const selectedDate = event.target.valueAsDate;
+    if (selectedDate) {
+      setBirthdate(selectedDate);
+    }
+  };
 
   const handleEmailChange = (event: {
     target: { value: React.SetStateAction<string> };
@@ -33,23 +49,57 @@ const singupPage = () => {
   }) => {
     setPassword(event.target.value);
   };
+  const handleParentEmailChange = (event: {
+    target: { value: React.SetStateAction<string> };
+  }) => {
+    setParentEmail(event.target.value);
+  };
 
-  const handleSignUp = async () => {
+  const handleParentPhotoChange = (event: {
+    target: { value: React.SetStateAction<string> };
+  }) => {
+    setParentPhoto(event.target.value);
+  };
+
+  const handleSubmit = async (e: { preventDefault: () => void }) => {
+    e.preventDefault();
+
     try {
-      const { data, error } = await supabase.auth.signUp({
-        email,
-        password,
+      const response = await fetch("/api/user/addnew", {
+        method: "POST", // or 'GET' depending on your API
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          name: name,
+          birthdate: birthdate,
+          email: email,
+          password: password,
+          parent_email: parentEmail,
+          parent_photo: parentPhoto,
+        }),
       });
 
-      if (error) {
-        console.error("Error signing up:", error.message);
-        return;
-      }
+      if (response.ok) {
+        // Handle a successful response here
+        const data = await response.json();
 
-      console.log("User signed up:", data);
-      router.push("/"); // Redirect to dashboard or another page upon successful sign-in
+        // Now, you can work with the JSON data and the saved ID
+        console.log("API call successful. Response data:", data);
+        // Extract the ID from the response data
+        const userId = data.data[0].id;
+        console.log(userId);
+
+        // Save the ID to local storage
+        localStorage.setItem("session", userId);
+        console.log("User ID saved to local storage:", userId);
+      } else {
+        // Handle error response here
+        console.error("API call failed");
+      }
     } catch (error) {
-      console.error("Error signing up:", error);
+      // Handle network or other errors here
+      console.error("Network error", error);
     }
   };
 
@@ -82,6 +132,7 @@ const singupPage = () => {
                     id="name"
                     type="name"
                     className="bg-transparent"
+                    onChange={handleNameChange}
                     autoFocus
                   />
                 </div>
@@ -106,6 +157,8 @@ const singupPage = () => {
                   <Input
                     id="date"
                     type="date"
+                    onChange={handleBirthdateChange}
+                    value={birthdate.toISOString().split("T")[0]}
                     className="bg-transparent text-white"
                   />
                 </div>
@@ -130,18 +183,20 @@ const singupPage = () => {
                   <Input
                     id="email"
                     type="email"
+                    onChange={handleParentEmailChange}
                     className="bg-transparent text-white "
                   />
                 </div>
                 <div className="flex flex-col space-y-3">
-                    <Label htmlFor="parent-photo" className="font-poppins">
-                      Foto orangtua (untuk verifikasi)
-                    </Label>
-                    <Input
-                      id="parent-photo"
-                      type="file"
-                      accept=".png,.jpg,.jpeg"
-                      className="bg-transparent text-white "
+                  <Label htmlFor="parent-photo" className="font-poppins">
+                    Foto orangtua (untuk verifikasi)
+                  </Label>
+                  <Input
+                    id="parent-photo"
+                    type="file"
+                    accept=".png,.jpg,.jpeg"
+                    onChange={handleParentPhotoChange}
+                    className="bg-transparent text-white "
                   />
                 </div>
               </div>
@@ -151,7 +206,7 @@ const singupPage = () => {
         <CardFooter className="pt-3">
           <Button
             className="bg-[#FEAE33] text-black font-bold rounded-full px-10 hover:bg-[#E19323] transition-transform duration-300 transform hover:scale-110"
-            onClick={handleSignUp}
+            onClick={handleSubmit}
           >
             Masuk
           </Button>

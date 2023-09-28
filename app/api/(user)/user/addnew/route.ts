@@ -28,13 +28,14 @@ export async function POST(req: NextRequest, res: NextResponse) {
       const { data: newUser, error: insertError } = await supabase
         .from('Users')
         .insert([{ name, birthdate, email, password, parent_email, parent_photo }])
-        .single();
+        .select()
   
       if (insertError) {
         console.error(insertError); // Log the error for debugging purposes
         return NextResponse.json({ error: "An error occurred while saving the user" }, { status: 500 });
       }
   
+      console.log("newUser:", newUser);
       return NextResponse.json({ data: newUser }, { status: 200 }); // Return 200 status for successful creation
   
     } catch (error) {
