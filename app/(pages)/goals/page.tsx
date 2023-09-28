@@ -17,19 +17,32 @@ const goalPage = () => {
     const [listGoals, setListGoals] = useState<dataGoals[]>([]);
 
     useEffect(() => {
-        fetch("/api/all-goal", {
-            method: "GET",
-            headers: {
-                "Content-type": "application/json; charset=UTF-8"
-            }
-        })
-            .then((res) => res.json())
-            .then((data) => {
-                // Update state
-                console.log(data.data);
-                setListGoals(data.data);
-            });
-    }, [listGoals]);
+
+        // Get the value from local storage
+        const userId = localStorage.getItem('session');
+
+        // Check if the value exists
+        if (userId !== null) {
+            console.log('Value from local storage:', userId);
+            fetch("/api/all-goal", {
+                method: "GET",
+                headers: {
+                    "Content-type": "application/json; charset=UTF-8",
+                    'user-id': userId
+                }
+            })
+                .then((res) => res.json())
+                .then((data) => {
+                    // Update state
+                    console.log(data.data);
+                    setListGoals(data.data);
+                });
+        } else {
+            console.log('Value not found in local storage');
+            // ini redirect ke login
+        }
+
+    }, []);
 
     return (
         <main className="flex min-h-screen w-full">
