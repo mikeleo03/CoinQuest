@@ -5,6 +5,20 @@ import Navbar from "@/components/ui/navbar";
 import { Pencil } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
+import { Toaster } from "@/components/ui/toaster"
+import { useToast } from "@/components/ui/use-toast"
+
+interface userData {
+  birthDate : Date,
+  coin : number,
+  email : string,
+  id : number,
+  name : string,
+  parent_email : string,
+  parent_photo : string,
+  password : string,
+  profpic : string
+}
 
 const page = () => {
   const [isEditing, setIsEditing] = useState(false);
@@ -17,6 +31,9 @@ const page = () => {
   const [originalParentEmail, setOriginalParentEmail] = useState("");
   const [originalDate, setOriginalDate] = useState("");
   const [coin, setCoin] = useState(0);
+  const [currentId, setCurrentId] = useState(0);
+  const [userData, setUserData] = useState<userData>();
+  const { toast } = useToast();
 
   useEffect(() => {
     // Get the value from local storage
@@ -25,6 +42,7 @@ const page = () => {
     // Check if the value exists
     if (userId !== null) {
       console.log("Value from local storage:", userId);
+      setCurrentId(parseInt(userId));
       fetch(`/api/user/${userId}`, {
         method: "GET",
         headers: {
@@ -36,12 +54,12 @@ const page = () => {
         .then((data) => {
           // Update state
           console.log(data);
+          setUserData(data.data);
           setInputUsername(data.data.name);
           setInputEmail(data.data.email);
           setInputParentEmail(data.data.parent_email);
           setInputDate(data.data.birthdate.toString());
           setCoin(data.data.coin);
-          // setProfpic(data.data.profpic);
         });
     } else {
       console.log("Value not found in local storage");
@@ -65,13 +83,51 @@ const page = () => {
     setIsEditing(!isEditing);
   };
 
-  const handleSave = () => {
+  const handleSave = async (e: { preventDefault: () => void }) => {
+    e.preventDefault();
+
     // Backend
-    setIsEditing(false);
+    let userId = currentId.toString();
+    try {
+      const response = await fetch(`/api/user/edit/${userId}`, {
+        method: "PATCH",
+        body: JSON.stringify({
+          name: inputUsername,
+          birthdate : inputDate,
+          email: inputEmail,
+          parent_email : inputParentEmail,
+        }),
+        headers: {
+          "Content-type": "application/json; charset=UTF-8",
+        }
+      });
+
+      if (response.ok) {
+        const data = await response.json();
+        toast({
+          title: "Berhasil!",
+          description: "Datamu sudah diperbaharui",
+        })
+      } else {
+        toast({
+          title: "Edit tidak berhasil :(",
+          description: "Periksa kembali format masukanmu ya!",
+        })
+      }
+    } catch (error) {
+      // Handle network or other errors here
+      toast({
+        title: "Edit tidak berhasil :(",
+        description: "Periksa kembali format masukanmu ya!",
+      })
+    }
+
+    setIsEditing(!isEditing);
   };
 
   return (
     <main className="flex min-h-screen w-full">
+      <Toaster />
       {/* Background */}
       <img
         src="/assets/background.png"
