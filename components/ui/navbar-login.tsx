@@ -76,6 +76,12 @@ const navbar = () => {
                   Course
                 </a>
                 <a
+                  href="/saving"
+                  className=" hover:scale-110 text-white px-5 py-2 rounded-md text-[24px] font-medium font-poppins items-center transition-transform duration-300"
+                >
+                  Tabungan
+                </a>
+                <a
                   href="/profile"
                   className="text-white hover:scale-110 hover:text-white px-5 py-2 rounded-md font-medium font-poppins w-full transition-transform duration-300"
                 >

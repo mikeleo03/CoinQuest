@@ -29,7 +29,7 @@ export async function GET(req: NextRequest) {
         const { data: goals, error: goalError } = await supabase
             .from('Goals')
             .select('*')
-            .eq('id', goalId) as { data: Quest[], error: any };
+            .eq('id', goalId) as { data: Goals[], error: any };
 
         if (goalError) {
         console.error(goalError);

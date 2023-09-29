@@ -44,6 +44,21 @@ const goalPage = () => {
 
     }, []);
 
+    const handleCardClick = (id : number) => {
+        console.log(id);
+        fetch(`/api/get-quests/${id}`, {
+            method: "GET",
+            headers: {
+                "Content-type": "application/json; charset=UTF-8",
+            }
+        })
+            .then((res) => res.json())
+            .then((data) => {
+              // Update state
+              console.log(data.data[0].quests);
+        });
+    };
+
     return (
         <main className="flex min-h-screen w-full">
             {/* Background */}
@@ -74,7 +89,7 @@ const goalPage = () => {
                     <Slider options={{ align: "center" }}>
                         {listGoals ? (listGoals.map((goal, i) => (
                             <div key={i} className="flex-[0_0_90%] md:flex-[0_0_50%]">
-                                <GoalCard id={goal.id} title={goal.title} desc={goal.desc} price={goal.price} is_done={goal.is_done} />
+                                <GoalCard id={goal.id} title={goal.title} desc={goal.desc} price={goal.price} is_done={goal.is_done} onClick={handleCardClick}/>
                             </div>
                         ))) : (
                             <h1>Tidak ada goals saat ini.</h1>
