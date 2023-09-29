@@ -101,7 +101,7 @@ const CoursesPage = () => {
                 </CardContent>
                 <CardFooter className="px-4 pb-4 flex items-end justify-center self-end">
                   <Link href={`/course/${course.id}`}>
-                    <Button className="bg-[#FEAE33] text-black font-bold rounded-full px-10 hover:bg-[#E19323] transition-transform duration-200 transform hover:scale-105">
+                    <Button className="bg-[#FEAE33] text-black font-bold rounded-full px-16 hover:bg-[#E19323] transition-transform duration-200 transform hover:scale-105">
                       Explore
                     </Button>
                   </Link>
