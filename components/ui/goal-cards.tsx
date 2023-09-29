@@ -1,4 +1,6 @@
-import { Button } from "@/components/ui/button";
+"use client";
+
+import React, { useState, useEffect } from "react";
 import {
   Dialog,
   DialogContent,
@@ -22,7 +24,39 @@ type Props = {
   is_done: boolean;
 };
 
-const GoalCard = (props: Props) => {
+type QuestProps = {
+  idQuest : number;
+  idGoals : number;
+}
+
+interface CardProps {
+  id: number;
+  title: string;
+  desc: string;
+  price: number;
+  is_done: boolean;
+  onClick: (id: number) => void;
+}
+
+const GoalCard: React.FC<CardProps> = ({ id, title, desc, price, is_done, onClick }) => {
+  const [questData, setQuestData] = useState<QuestProps>();
+
+  /* useEffect(() => {
+    console.log(id);
+    fetch(`/api/get-quests/${id}`, {
+        method: "GET",
+        headers: {
+            "Content-type": "application/json; charset=UTF-8",
+        }
+    })
+        .then((res) => res.json())
+        .then((data) => {
+          // Update state
+          console.log(data.data);
+          setQuestData(data.data);
+        });
+  }, []); */
+
   return (
     <Dialog>
       <div className="z-10 bg-gray-400 bg-clip-padding backdrop-filter backdrop-blur-none bg-opacity-30 border text-white rounded-xl m-2 justify-center items-center">
@@ -35,12 +69,12 @@ const GoalCard = (props: Props) => {
           />
         </div>
         <div className="pt-6 pb-0 px-10">
-          <h2 className="text-4xl font-semibold font-poppins">{props.title}</h2>
-          <p className="mt-2 text-xl font-poppins">{props.is_done ? "Sudah diselesaikan" : "Belum diselesaikan"}</p>
-          <p className="mt-2 font-poppins">{props.price}</p>
+          <h2 className="text-4xl font-semibold font-poppins">{title}</h2>
+          <p className="mt-2 text-xl font-poppins">{is_done ? "Sudah diselesaikan" : "Belum diselesaikan"}</p>
+          <p className="mt-2 font-poppins">{price}</p>
         </div>
         <div className="flex py-8 pt-6 justify-center items-center">
-          <DialogTrigger className="bg-[#FEAE33] text-black font-bold rounded-full px-14 py-2 hover:bg-[#E19323] transition-transform duration-200 transform hover:scale-105">
+          <DialogTrigger className="bg-[#FEAE33] text-black font-bold rounded-full px-14 py-2 hover:bg-[#E19323] transition-transform duration-200 transform hover:scale-105" onClick={() => onClick(id)}>
             Kerjakan
           </DialogTrigger>
         </div>
