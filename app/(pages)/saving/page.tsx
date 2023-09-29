@@ -124,6 +124,7 @@ const SavingsPage = () => {
   const [verificationSuccess, setVerificationSuccess] = useState(false);
   const [rows, setRows] = useState<savingData[]>([]);
   const [total, setTotal] = useState("");
+  const [nominalAdd, setNominalAdd] = useState(0);
 
   useEffect(() => {
     // Get the value from local storage
@@ -293,7 +294,12 @@ const SavingsPage = () => {
             <div className="space-y-5">
               <h1>Masukkan jumlah uang yang ingin ditabung :</h1>
               <div className="flex space-x-5">
-                <Input className="w-2/3 text-black" placeholder="Rp2.000,00" />
+                <Input 
+                  className="w-2/3 text-black" 
+                  placeholder="Tambahkan nilai, misal Rp 2.000,00"
+                  value={nominalAdd}
+                  onChange={(e) => setNominalAdd(parseInt(e.target.value))}
+                />
                 <Dialog>
                   <DialogTrigger asChild>
                     <Button
