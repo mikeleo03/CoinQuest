@@ -35,7 +35,11 @@ const CoursePage = () => {
   };
 
   const [listSubcourse, setListSubcourse] = useState<dataSubcourse[]>([]);
-  const [title, setTitle] = useState([]);
+  const [titleCourse, setTitleCourse] = useState([]);
+  const [id, setId] = useState<number>();
+  const [title, setTitle] = useState<string>();
+  const [videoLink, setVideoLink] = useState<string>();
+  const [article, setArticle] = useState<string>();
 
   useEffect(() => {
     // Get the value from local storage
@@ -57,8 +61,17 @@ const CoursePage = () => {
         .then((res) => res.json())
         .then((data) => {
           // Update state
-          console.log(data.data);
-          setListSubcourse(data.data);
+          try {
+            console.log(data.data);
+            setListSubcourse(data.data);
+            const firstData = data.data[0];
+            setId(firstData.subcourseId);
+            setTitle(firstData.title);
+            setVideoLink(firstData.videoLink);
+            setArticle(firstData.article);
+          } catch {
+            console.log("data empty");
+          }
         });
 
       fetch(`/api/course/${courseId}`, {
@@ -73,7 +86,7 @@ const CoursePage = () => {
           // Update state
           console.log(data.data);
           try {
-            setTitle(data.data.title);
+            setTitleCourse(data.data.title);
           } catch {
             console.log("title is null");
           }
@@ -83,6 +96,18 @@ const CoursePage = () => {
       // ini redirect ke login
     }
   }, [pathname]);
+
+  function handleOpenSubcourse(
+    subcourseId: number,
+    title: string,
+    videoLink: string,
+    article: string
+  ): void {
+    setId(subcourseId);
+    setTitle(title);
+    setVideoLink(videoLink);
+    setArticle(article);
+  }
 
   return (
     <main className="flex flex-col justify-start items-start overflow-hidden h-screen px-5 py-5">
@@ -96,7 +121,7 @@ const CoursePage = () => {
 
       <div className="w-screen flex flex-row justify-between items-center px-8 pt-8 pb-5 h-1/6 z-10">
         <h1 className="text-4xl text-white font-riffic tracking-wide">
-          {title}
+          {titleCourse}
         </h1>
         <Button
           className="flex bg-[#FEAE33] text-black font-bold rounded-full hover:bg-[#E19323] transition-transform duration-300 transform hover:scale-11 mr-3"
@@ -114,7 +139,17 @@ const CoursePage = () => {
           <ul>
             {listSubcourse &&
               listSubcourse.map((subcourse, i) => (
-                <li>
+                <li
+                  key={subcourse.id}
+                  onClick={() =>
+                    handleOpenSubcourse(
+                      subcourse.id,
+                      subcourse.title,
+                      subcourse.video_link,
+                      subcourse.article
+                    )
+                  }
+                >
                   <h1 className="text-white text-md font-poppins py-4 hover:bg-gray-500 hover:backdrop-blur-none hover:backdropfilter hover:bg-opacity-30 hover:rounded-3xl cursor-pointer p-3">
                     {subcourse.title}
                   </h1>
@@ -125,7 +160,12 @@ const CoursePage = () => {
 
         <Separator orientation="vertical" className="mx-5" />
 
-        <Subcourse />
+        <Subcourse
+          id={id}
+          title={title}
+          videoLink={videoLink}
+          article={article}
+        />
       </div>
     </main>
   );
