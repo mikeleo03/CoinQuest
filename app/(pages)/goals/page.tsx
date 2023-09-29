@@ -15,6 +15,7 @@ interface dataGoals {
 
 const goalPage = () => {
     const [listGoals, setListGoals] = useState<dataGoals[]>([]);
+    const [listQuest, setListQuest] = useState<number[]>([]);
 
     useEffect(() => {
 
@@ -55,7 +56,12 @@ const goalPage = () => {
             .then((res) => res.json())
             .then((data) => {
               // Update state
-              console.log(data.data[0].quests);
+              console.log(data.data[0].quests
+                .map((item : { id: number, id_goals : number }) => item.id)
+                .sort((a : number, b : number) => a - b));
+              setListQuest(data.data[0].quests
+                .map((item : { id: number, id_goals : number }) => item.id)
+                .sort((a : number, b : number) => a - b));
         });
     };
 
@@ -89,7 +95,7 @@ const goalPage = () => {
                     <Slider options={{ align: "center" }}>
                         {listGoals ? (listGoals.map((goal, i) => (
                             <div key={i} className="flex-[0_0_90%] md:flex-[0_0_50%]">
-                                <GoalCard id={goal.id} title={goal.title} desc={goal.desc} price={goal.price} is_done={goal.is_done} onClick={handleCardClick}/>
+                                <GoalCard id={goal.id} title={goal.title} desc={goal.desc} price={goal.price} is_done={goal.is_done} onClick={handleCardClick} listQuest={listQuest}/>
                             </div>
                         ))) : (
                             <h1>Tidak ada goals saat ini.</h1>

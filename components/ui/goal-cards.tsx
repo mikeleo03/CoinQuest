@@ -11,19 +11,6 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog"
 
-type Props = {
-  id: number;
-  title: string;
-  desc: string;
-  price: number;
-  is_done: boolean;
-};
-
-type QuestProps = {
-  idQuest : number;
-  idGoals : number;
-}
-
 interface CardProps {
   id: number;
   title: string;
@@ -31,26 +18,36 @@ interface CardProps {
   price: number;
   is_done: boolean;
   onClick: (id: number) => void;
+  listQuest: number[];
 }
 
-const GoalCard: React.FC<CardProps> = ({ id, title, desc, price, is_done, onClick }) => {
-  const [questData, setQuestData] = useState<QuestProps>();
+interface dataTask {
+  id: number;
+  id_quest: number;
+  desc: string;
+  link: string;
+  is_done: boolean;
+}
 
-  /* useEffect(() => {
-    console.log(id);
-    fetch(`/api/get-quests/${id}`, {
-        method: "GET",
-        headers: {
-            "Content-type": "application/json; charset=UTF-8",
-        }
-    })
-        .then((res) => res.json())
-        .then((data) => {
-          // Update state
-          console.log(data.data);
-          setQuestData(data.data);
-        });
-  }, []); */
+const GoalCard: React.FC<CardProps> = ({ id, title, desc, price, is_done, onClick, listQuest }) => {
+  const [taskData, setTaskData] = useState<dataTask[]>([]);
+  const [currentPlanet, setCurrentPlanet] = useState(0);
+
+  const handlePlanetClick = (id : number) => {
+      setCurrentPlanet(id);
+      fetch(`/api/get-tasks/${id}`, {
+          method: "GET",
+          headers: {
+              "Content-type": "application/json; charset=UTF-8",
+          }
+      })
+          .then((res) => res.json())
+          .then((data) => {
+            // Update state
+            console.log(data.data[0].tasks);
+            setTaskData(data.data[0].tasks);
+      });
+  };
 
   return (
     <Dialog>
@@ -97,28 +94,41 @@ const GoalCard: React.FC<CardProps> = ({ id, title, desc, price, is_done, onClic
         </div>
         <Dialog>
           <DialogTrigger>
-            <div className="transition-transform duration-200 transform hover:scale-125 fixed right-72 top-[7.5rem] justify-center items-center">
+            <button className="transition-transform duration-200 transform hover:scale-125 fixed right-72 top-[7.5rem] justify-center items-center" id="1" onClick={() => handlePlanetClick(1)}>
               <img
                 src="/assets/planets/planet-fix-1.png"
                 alt="background image"
                 className="w-[80px] h-[80px]"
                 draggable='false'
               />
-            </div>
+            </button>
           </DialogTrigger>
           <DialogContent className="w-80">
             <div className="grid gap-4">
-              <h4 className="font-medium leading-none">Task 1</h4>
+              <h4 className="font-medium leading-none">Quest 1</h4>
               <p className="text-sm text-muted-foreground mb-2">
                 Berikut adalah beberapa task yang perlu diselesaikan :
               </p>
-              <button onClick={() => console.log("Hai")} className="z-[400]">Hai dunia</button>
+            </div>
+            <div>
+              {((currentPlanet === 1) && (taskData)) ? (taskData.map((task, i) => (
+                  <div key={i} className="flex flex-row justify-center items-center mb-2">
+                    <div className="w-4/5">{task.desc}</div>
+                    <div className="w-1/5">
+                      <a href={task.link}>
+                        <button className="bg-[#FEAE33] text-black font-bold rounded-full px-3 py-1 hover:bg-[#E19323] transition-transform duration-200 transform hover:scale-105">
+                          Let's Go
+                        </button>
+                      </a>
+                    </div>
+                  </div>
+              ))) : (<h3 className="justify-center text-center">Tidak ada.</h3>)}
             </div>
           </DialogContent>
         </Dialog>
         <Dialog>
           <DialogTrigger>
-            <button className="transition-transform duration-200 transform hover:scale-125 fixed right-[12rem] bottom-[18rem] justify-center items-center">
+            <button className="transition-transform duration-200 transform hover:scale-125 fixed right-[12rem] bottom-[18rem] justify-center items-center" id="2" onClick={() => handlePlanetClick(2)}>
               <img
                 src="/assets/planets/planet-fix-2.png"
                 alt="background image"
@@ -129,16 +139,30 @@ const GoalCard: React.FC<CardProps> = ({ id, title, desc, price, is_done, onClic
           </DialogTrigger>
           <DialogContent className="w-80">
             <div className="grid gap-4">
-              <h4 className="font-medium leading-none">Task 2</h4>
+              <h4 className="font-medium leading-none">Quest 2</h4>
               <p className="text-sm text-muted-foreground mb-2">
                 Berikut adalah beberapa task yang perlu diselesaikan :
               </p>
+            </div>
+            <div>
+              {((currentPlanet === 2) && (taskData)) ? (taskData.map((task, i) => (
+                  <div key={i} className="flex flex-row justify-center items-center mb-2">
+                    <div className="w-4/5">{task.desc}</div>
+                    <div className="w-1/5">
+                      <a href={task.link}>
+                        <button className="bg-[#FEAE33] text-black font-bold rounded-full px-3 py-1 hover:bg-[#E19323] transition-transform duration-200 transform hover:scale-105">
+                          Let's Go
+                        </button>
+                      </a>
+                    </div>
+                  </div>
+              ))) : (<h3 className="justify-center text-center">Tidak ada.</h3>)}
             </div>
           </DialogContent>
         </Dialog>
         <Dialog>
           <DialogTrigger>
-            <button className="transition-transform duration-200 transform hover:scale-125 fixed right-[22rem] bottom-[6rem] justify-center items-center">
+            <button className="transition-transform duration-200 transform hover:scale-125 fixed right-[22rem] bottom-[6rem] justify-center items-center" id="3" onClick={() => handlePlanetClick(3)}>
               <img
                 src="/assets/planets/planet-fix-3.png"
                 alt="background image"
@@ -149,16 +173,30 @@ const GoalCard: React.FC<CardProps> = ({ id, title, desc, price, is_done, onClic
           </DialogTrigger>
           <DialogContent className="w-80">
             <div className="grid gap-4">
-              <h4 className="font-medium leading-none">Task 3</h4>
+              <h4 className="font-medium leading-none">Quest 3</h4>
               <p className="text-sm text-muted-foreground mb-2">
                 Berikut adalah beberapa task yang perlu diselesaikan :
               </p>
+            </div>
+            <div>
+              {((currentPlanet === 3) && (taskData)) ? (taskData.map((task, i) => (
+                  <div key={i} className="flex flex-row justify-center items-center mb-2">
+                    <div className="w-4/5">{task.desc}</div>
+                    <div className="w-1/5">
+                      <a href={task.link}>
+                        <button className="bg-[#FEAE33] text-black font-bold rounded-full px-3 py-1 hover:bg-[#E19323] transition-transform duration-200 transform hover:scale-105">
+                          Let's Go
+                        </button>
+                      </a>
+                    </div>
+                  </div>
+              ))) : (<h3 className="justify-center text-center">Tidak ada.</h3>)}
             </div>
           </DialogContent>
         </Dialog>
         <Dialog>
           <DialogTrigger>
-            <button className="transition-transform duration-200 transform hover:scale-125 fixed left-[26.2rem] bottom-[13rem] justify-center items-center">
+            <button className="transition-transform duration-200 transform hover:scale-125 fixed left-[26.2rem] bottom-[13rem] justify-center items-center" id="4" onClick={() => handlePlanetClick(4)}>
               <img
                 src="/assets/planets/planet-fix-4.png"
                 alt="background image"
@@ -169,16 +207,30 @@ const GoalCard: React.FC<CardProps> = ({ id, title, desc, price, is_done, onClic
           </DialogTrigger>
           <DialogContent className="w-80">
             <div className="grid gap-4">
-              <h4 className="font-medium leading-none">Task 4</h4>
+              <h4 className="font-medium leading-none">Quest 4</h4>
               <p className="text-sm text-muted-foreground mb-2">
                 Berikut adalah beberapa task yang perlu diselesaikan :
               </p>
+            </div>
+            <div>
+              {((currentPlanet === 4) && (taskData)) ? (taskData.map((task, i) => (
+                  <div key={i} className="flex flex-row justify-center items-center mb-2">
+                    <div className="w-4/5">{task.desc}</div>
+                    <div className="w-1/5">
+                      <a href={task.link}>
+                        <button className="bg-[#FEAE33] text-black font-bold rounded-full px-3 py-1 hover:bg-[#E19323] transition-transform duration-200 transform hover:scale-105">
+                          Let's Go
+                        </button>
+                      </a>
+                    </div>
+                  </div>
+              ))) : (<h3 className="justify-center text-center">Tidak ada.</h3>)}
             </div>
           </DialogContent>
         </Dialog>
         <Dialog>
           <DialogTrigger>
-            <button className="transition-transform duration-200 transform hover:scale-125 fixed right-[27rem] top-[15.5rem] justify-center items-center">
+            <button className="transition-transform duration-200 transform hover:scale-125 fixed right-[27rem] top-[15.5rem] justify-center items-center" id="5" onClick={() => handlePlanetClick(5)}>
               <img
                 src="/assets/planets/planet-fix-5.png"
                 alt="background image"
@@ -189,16 +241,30 @@ const GoalCard: React.FC<CardProps> = ({ id, title, desc, price, is_done, onClic
           </DialogTrigger>
           <DialogContent className="w-80">
             <div className="grid gap-4">
-              <h4 className="font-medium leading-none">Task 5</h4>
+              <h4 className="font-medium leading-none">Quest 5</h4>
               <p className="text-sm text-muted-foreground mb-2">
                 Berikut adalah beberapa task yang perlu diselesaikan :
               </p>
+            </div>
+            <div>
+              {((currentPlanet === 5) && (taskData)) ? (taskData.map((task, i) => (
+                  <div key={i} className="flex flex-row justify-center items-center mb-2">
+                    <div className="w-4/5">{task.desc}</div>
+                    <div className="w-1/5">
+                      <a href={task.link}>
+                        <button className="bg-[#FEAE33] text-black font-bold rounded-full px-3 py-1 hover:bg-[#E19323] transition-transform duration-200 transform hover:scale-105">
+                          Let's Go
+                        </button>
+                      </a>
+                    </div>
+                  </div>
+              ))) : (<h3 className="justify-center text-center">Tidak ada.</h3>)}
             </div>
           </DialogContent>
         </Dialog>
         <Dialog>
           <DialogTrigger>
-            <button className="transition-transform duration-200 transform hover:scale-125 fixed left-[17.6rem] top-[10.4rem] justify-center items-center">
+            <button className="transition-transform duration-200 transform hover:scale-125 fixed left-[17.6rem] top-[10.4rem] justify-center items-center" id="6" onClick={() => handlePlanetClick(6)}>
               <img
                 src="/assets/planets/planet-fix-6.png"
                 alt="background image"
@@ -209,16 +275,30 @@ const GoalCard: React.FC<CardProps> = ({ id, title, desc, price, is_done, onClic
           </DialogTrigger>
           <DialogContent className="w-80">
             <div className="grid gap-4">
-              <h4 className="font-medium leading-none">Task 6</h4>
+              <h4 className="font-medium leading-none">Quest 6</h4>
               <p className="text-sm text-muted-foreground mb-2">
                 Berikut adalah beberapa task yang perlu diselesaikan :
               </p>
+            </div>
+            <div>
+              {((currentPlanet === 6) && (taskData)) ? (taskData.map((task, i) => (
+                  <div key={i} className="flex flex-row justify-center items-center mb-2">
+                    <div className="w-4/5">{task.desc}</div>
+                    <div className="w-1/5">
+                      <a href={task.link}>
+                        <button className="bg-[#FEAE33] text-black font-bold rounded-full px-3 py-1 hover:bg-[#E19323] transition-transform duration-200 transform hover:scale-105">
+                          Let's Go
+                        </button>
+                      </a>
+                    </div>
+                  </div>
+              ))) : (<h3 className="justify-center text-center">Tidak ada.</h3>)}
             </div>
           </DialogContent>
         </Dialog>
         <Dialog>
           <DialogTrigger>
-            <button className="transition-transform duration-200 transform hover:scale-125 fixed left-[12.7rem] bottom-[15.5rem] justify-center items-center">
+            <button className="transition-transform duration-200 transform hover:scale-125 fixed left-[12.7rem] bottom-[15.5rem] justify-center items-center" id="7" onClick={() => handlePlanetClick(7)}>
               <img
                 src="/assets/planets/planet-fix-7.png"
                 alt="background image"
@@ -229,16 +309,30 @@ const GoalCard: React.FC<CardProps> = ({ id, title, desc, price, is_done, onClic
           </DialogTrigger>
           <DialogContent className="w-80">
             <div className="grid gap-4">
-              <h4 className="font-medium leading-none">Task 7</h4>
+              <h4 className="font-medium leading-none">Quest 7</h4>
               <p className="text-sm text-muted-foreground mb-2">
                 Berikut adalah beberapa task yang perlu diselesaikan :
               </p>
+            </div>
+            <div>
+              {((currentPlanet === 7) && (taskData)) ? (taskData.map((task, i) => (
+                  <div key={i} className="flex flex-row justify-center items-center mb-2">
+                    <div className="w-4/5">{task.desc}</div>
+                    <div className="w-1/5">
+                      <a href={task.link}>
+                        <button className="bg-[#FEAE33] text-black font-bold rounded-full px-3 py-1 hover:bg-[#E19323] transition-transform duration-200 transform hover:scale-105">
+                          Let's Go
+                        </button>
+                      </a>
+                    </div>
+                  </div>
+              ))) : (<h3 className="justify-center text-center">Tidak ada.</h3>)}
             </div>
           </DialogContent>
         </Dialog>
         <Dialog>
           <DialogTrigger>
-            <button className="transition-transform duration-200 transform hover:scale-125 fixed left-[17.8rem] bottom-[7rem] justify-center items-center">
+            <button className="transition-transform duration-200 transform hover:scale-125 fixed left-[17.8rem] bottom-[7rem] justify-center items-center" id="8" onClick={() => handlePlanetClick(8)}>
               <img
                 src="/assets/planets/planet-fix-8.png"
                 alt="background image"
@@ -249,10 +343,24 @@ const GoalCard: React.FC<CardProps> = ({ id, title, desc, price, is_done, onClic
           </DialogTrigger>
           <DialogContent className="w-80">
             <div className="grid gap-4">
-              <h4 className="font-medium leading-none">Task 8</h4>
+              <h4 className="font-medium leading-none">Quest 8</h4>
               <p className="text-sm text-muted-foreground mb-2">
                 Berikut adalah beberapa task yang perlu diselesaikan :
               </p>
+            </div>
+            <div>
+              {((currentPlanet === 8) && (taskData)) ? (taskData.map((task, i) => (
+                  <div key={i} className="flex flex-row justify-center items-center mb-2">
+                    <div className="w-4/5">{task.desc}</div>
+                    <div className="w-1/5">
+                      <a href={task.link}>
+                        <button className="bg-[#FEAE33] text-black font-bold rounded-full px-3 py-1 hover:bg-[#E19323] transition-transform duration-200 transform hover:scale-105">
+                          Let's Go
+                        </button>
+                      </a>
+                    </div>
+                  </div>
+              ))) : (<h3 className="justify-center text-center">Tidak ada.</h3>)}
             </div>
           </DialogContent>
         </Dialog>
@@ -260,4 +368,5 @@ const GoalCard: React.FC<CardProps> = ({ id, title, desc, price, is_done, onClic
     </Dialog>
   );
 };
+
 export default GoalCard;
