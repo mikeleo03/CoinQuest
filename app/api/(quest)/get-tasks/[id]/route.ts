@@ -26,9 +26,9 @@ export async function GET(req: NextRequest) {
     try {
         // Fetch all quests
         const { data: quests, error: questsError } = await supabase
-        .from('Quests')
-        .select('*')
-        .eq('id', questId) as { data: Quest[], error: any };
+            .from('Quests')
+            .select('*')
+            .eq('id', questId) as { data: Quest[], error: any };
 
         if (questsError) {
         console.error(questsError);
@@ -37,8 +37,8 @@ export async function GET(req: NextRequest) {
 
         // Fetch all tasks
         const { data: tasks, error: tasksError } = await supabase
-        .from('Tasks')
-        .select('*') as { data: Tasks[], error: any };
+            .from('Tasks')
+            .select('*') as { data: Tasks[], error: any };
 
         if (tasksError) {
         console.error(tasksError);
@@ -48,10 +48,10 @@ export async function GET(req: NextRequest) {
         // Combine the quests and tasks data based on id_quest
         const combinedData = quests.map((quest) => {
         const questTasks = tasks.filter((task) => task.id_quest === quest.id);
-        return {
-            ...quest,
-            tasks: questTasks,
-        };
+            return {
+                ...quest,
+                tasks: questTasks,
+            };
         });
 
         return NextResponse.json({ data: combinedData }, { status: 200 });
