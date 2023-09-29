@@ -1,6 +1,15 @@
 import { NextRequest, NextResponse } from "next/server";
 import supabase from "@/utils/supabase";
 
+interface Goals {
+    id: number,
+    id_user: number,
+    title: string,
+    desc: string,
+    price: number,
+    is_done: boolean
+}
+
 interface Quest {
     id: number,
     id_goals: number
@@ -15,9 +24,14 @@ interface Tasks {
 }
 
 export async function GET(req: NextRequest) {
-    const urlArr = req.url.split("/")
+    const urlArr = req.url.split("/");
+    const goalId = urlArr[urlArr.length - 2];
     const questId = urlArr[urlArr.length - 1];
     console.log(questId);
+
+    if (!goalId) {
+        return NextResponse.json({ error: "Goal ID is missing" }, { status: 400 })
+    }
 
     if (!questId) {
         return NextResponse.json({ error: "Quest ID is missing" }, { status: 400 })
@@ -28,6 +42,7 @@ export async function GET(req: NextRequest) {
         const { data: quests, error: questsError } = await supabase
             .from('Quests')
             .select('*')
+            .eq('id_goals', goalId)
             .eq('id', questId) as { data: Quest[], error: any };
 
         if (questsError) {
