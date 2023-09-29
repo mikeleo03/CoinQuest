@@ -95,7 +95,7 @@ const goalPage = () => {
                     <Slider options={{ align: "center" }}>
                         {listGoals ? (listGoals.map((goal, i) => (
                             <div key={i} className="flex-[0_0_90%] md:flex-[0_0_50%]">
-                                <GoalCard id={goal.id} title={goal.title} desc={goal.desc} price={goal.price} is_done={goal.is_done} onClick={handleCardClick} listQuest={listQuest}/>
+                                <GoalCard id_goal={goal.id} title={goal.title} desc={goal.desc} price={goal.price} is_done={goal.is_done} onClick={handleCardClick} listQuest={listQuest}/>
                             </div>
                         ))) : (
                             <h1>Tidak ada goals saat ini.</h1>

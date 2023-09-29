@@ -12,7 +12,7 @@ import {
 } from "@/components/ui/dialog"
 
 interface CardProps {
-  id: number;
+  id_goal: number;
   title: string;
   desc: string;
   price: number;
@@ -29,13 +29,14 @@ interface dataTask {
   is_done: boolean;
 }
 
-const GoalCard: React.FC<CardProps> = ({ id, title, desc, price, is_done, onClick, listQuest }) => {
+const GoalCard: React.FC<CardProps> = ({ id_goal, title, desc, price, is_done, onClick, listQuest }) => {
   const [taskData, setTaskData] = useState<dataTask[]>([]);
   const [currentPlanet, setCurrentPlanet] = useState(0);
 
   const handlePlanetClick = (id : number) => {
       setCurrentPlanet(id);
-      fetch(`/api/get-tasks/${id}`, {
+      setTaskData([]);
+      fetch(`/api/get-tasks/${id_goal}/${id}`, {
           method: "GET",
           headers: {
               "Content-type": "application/json; charset=UTF-8",
@@ -44,8 +45,8 @@ const GoalCard: React.FC<CardProps> = ({ id, title, desc, price, is_done, onClic
           .then((res) => res.json())
           .then((data) => {
             // Update state
-            console.log(data.data[0].tasks);
-            setTaskData(data.data[0].tasks);
+            console.log(data.data);
+            setTaskData(data.data ? data.data[0]?.tasks : data.data);
       });
   };
 
@@ -66,7 +67,7 @@ const GoalCard: React.FC<CardProps> = ({ id, title, desc, price, is_done, onClic
           <p className="mt-2 font-poppins">{price}</p>
         </div>
         <div className="flex py-8 pt-6 justify-center items-center">
-          <DialogTrigger className="bg-[#FEAE33] text-black font-bold rounded-full px-14 py-2 hover:bg-[#E19323] transition-transform duration-200 transform hover:scale-105" onClick={() => onClick(id)}>
+          <DialogTrigger className="bg-[#FEAE33] text-black font-bold rounded-full px-14 py-2 hover:bg-[#E19323] transition-transform duration-200 transform hover:scale-105" onClick={() => onClick(id_goal)}>
             Kerjakan
           </DialogTrigger>
         </div>
