@@ -105,6 +105,12 @@ const columns = [
   },
 ];
 
+interface savingData {
+  id : number,
+  date : Date,
+  amount : number
+}
+
 const SavingsPage = () => {
   const videoRef = useRef<HTMLVideoElement | null>(null);
   const [webcamActive, setWebcamActive] = useState(false);
@@ -116,6 +122,40 @@ const SavingsPage = () => {
   const [capturedImage, setCapturedImage] = useState<string | null>(null);
   const [showSpinner, setShowSpinner] = useState(false);
   const [verificationSuccess, setVerificationSuccess] = useState(false);
+  const [rows, setRows] = useState<savingData[]>([]);
+  const [total, setTotal] = useState("");
+
+  useEffect(() => {
+    // Get the value from local storage
+    const userId = localStorage.getItem("session");
+
+    // Check if the value exists
+    if (userId !== null) {
+      console.log("Value from local storage:", userId);
+      fetch(`/api/all-saving`, {
+        method: "GET",
+        headers: {
+          "Content-type": "application/json; charset=UTF-8",
+          "user-id": userId,
+        },
+      })
+        .then((res) => res.json())
+        .then((data) => {
+          // Update state
+          console.log(data.data);
+          let sums = data.data.reduce((acc : number, curr : savingData) => acc + curr.amount, 0);
+          const formattedSum = sums.toLocaleString('id-ID', {
+            style: 'currency',
+            currency: 'IDR'
+          });
+          setRows(data.data);
+          setTotal(formattedSum);
+        });
+    } else {
+      console.log("Value not found in local storage");
+      // ini redirect ke login
+    }
+  }, []);
 
   const startWebcam = async () => {
     try {
@@ -246,7 +286,7 @@ const SavingsPage = () => {
               <div className="text-xl w-full text-center">
                 <h1>Jumlah tabungan saat ini : &nbsp; </h1>
                 <h1 className="text-[#FEAE33] text-3xl font-bold">
-                  Rp500.000,00
+                  {total ? total : "Rp XXX.XXX,00"}
                 </h1>
               </div>
             </div>
