@@ -6,51 +6,52 @@ interface Quest {
     id_goals: number
 }
 
-interface Tasks {
+interface Goals {
     id: number,
-    id_quest: number,
+    id_user: number,
+    title: string,
     desc: string,
-    link: string,
+    price: number,
     is_done: boolean
 }
 
 export async function GET(req: NextRequest) {
     const urlArr = req.url.split("/")
-    const questId = urlArr[urlArr.length - 1];
-    console.log(questId);
+    const goalId = urlArr[urlArr.length - 1];
+    console.log(goalId);
 
-    if (!questId) {
+    if (!goalId) {
         return NextResponse.json({ error: "Quest ID is missing" }, { status: 400 })
     }
 
     try {
         // Fetch all quests
-        const { data: quests, error: questsError } = await supabase
-            .from('Quests')
+        const { data: goals, error: goalError } = await supabase
+            .from('Goals')
             .select('*')
-            .eq('id', questId) as { data: Quest[], error: any };
+            .eq('id', goalId) as { data: Quest[], error: any };
 
-        if (questsError) {
-        console.error(questsError);
+        if (goalError) {
+        console.error(goalError);
         return NextResponse.json({ error: "An error occurred while fetching quests" }, { status: 500 });
         }
 
         // Fetch all tasks
-        const { data: tasks, error: tasksError } = await supabase
-            .from('Tasks')
-            .select('*') as { data: Tasks[], error: any };
+        const { data: quests, error: questError } = await supabase
+            .from('Quests')
+            .select('*') as { data: Quest[], error: any };
 
-        if (tasksError) {
-        console.error(tasksError);
+        if (questError) {
+        console.error(questError);
         return NextResponse.json({ error: "An error occurred while fetching tasks" }, { status: 500 });
         }
 
         // Combine the quests and tasks data based on id_quest
-        const combinedData = quests.map((quest) => {
-        const questTasks = tasks.filter((task) => task.id_quest === quest.id);
+        const combinedData = goals.map((goal) => {
+        const goalQuest = quests.filter((quest) => quest.id_goals === goal.id);
             return {
-                ...quest,
-                tasks: questTasks,
+                ...goal,
+                quests: goalQuest,
             };
         });
 
