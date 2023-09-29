@@ -1,12 +1,14 @@
-'use client'
+"use client";
 
-import React from "react";
+import React, { useEffect, useState } from "react";
 
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Undo2 } from "lucide-react";
 import { useRouter } from "next/navigation";
+import { useUrl } from "nextjs-current-url";
+import Subcourse from "@/components/ui/subcourse";
 
 interface CourseProps {
   course: dataItem;
@@ -18,11 +20,69 @@ interface dataItem {
   desc: string;
 }
 
+interface dataSubcourse {
+  id: number;
+  title: string;
+  video_link: string;
+  article: string;
+}
+
 const CoursePage = () => {
+  const { pathname } = useUrl() ?? {};
   const router = useRouter();
   const redirectToCoursesPage = () => {
     router.push("/courses");
   };
+
+  const [listSubcourse, setListSubcourse] = useState<dataSubcourse[]>([]);
+  const [title, setTitle] = useState([]);
+
+  useEffect(() => {
+    // Get the value from local storage
+    const userId = localStorage.getItem("session");
+    const param = pathname ? pathname.split("/") : [];
+
+    // Check if the value exists
+    if (userId !== null) {
+      const courseId = param[param.length - 1];
+      console.log("courseid " + courseId);
+      console.log("Value from local storage:", userId);
+      fetch(`/api/all-subcourse/${courseId}`, {
+        method: "GET",
+        headers: {
+          "Content-type": "application/json; charset=UTF-8",
+          "user-id": userId,
+        },
+      })
+        .then((res) => res.json())
+        .then((data) => {
+          // Update state
+          console.log(data.data);
+          setListSubcourse(data.data);
+        });
+
+      fetch(`/api/course/${courseId}`, {
+        method: "GET",
+        headers: {
+          "Content-type": "application/json; charset=UTF-8",
+          "user-id": userId,
+        },
+      })
+        .then((res) => res.json())
+        .then((data) => {
+          // Update state
+          console.log(data.data);
+          try {
+            setTitle(data.data.title);
+          } catch {
+            console.log("title is null");
+          }
+        });
+    } else {
+      console.log("Value not found in local storage");
+      // ini redirect ke login
+    }
+  }, [pathname]);
 
   return (
     <main className="flex flex-col justify-start items-start overflow-hidden h-screen px-5 py-5">
@@ -36,7 +96,7 @@ const CoursePage = () => {
 
       <div className="w-screen flex flex-row justify-between items-center px-8 pt-8 pb-5 h-1/6 z-10">
         <h1 className="text-4xl text-white font-riffic tracking-wide">
-          Ini Judul Course
+          {title}
         </h1>
         <Button
           className="flex bg-[#FEAE33] text-black font-bold rounded-full hover:bg-[#E19323] transition-transform duration-300 transform hover:scale-11 mr-3"
@@ -52,101 +112,20 @@ const CoursePage = () => {
       <div className="flex w-fit h-screen z-10">
         <div className="w-1/5 backdrop-filter space-y-4 backdrop-blur-none bg-opacity-30 z-10 overflow-y-auto">
           <ul>
-            <li>
-              <h1 className="text-white text-lg font-poppins py-4 text-center hover:bg-gray-500 hover:backdrop-blur-none hover:backdropfilter hover:bg-opacity-30 hover:rounded-3xl cursor-pointer">
-                Judul Subcourse 1
-              </h1>
-            </li>
-            <li>
-              <h1 className="text-white text-lg font-poppins py-4 text-center hover:bg-gray-500 hover:backdrop-blur-none hover:backdropfilter hover:bg-opacity-30 hover:rounded-3xl cursor-pointer">
-                Judul Subcourse 2
-              </h1>
-            </li>
-            <li>
-              <h1 className="text-white text-lg font-poppins py-4 text-center hover:bg-gray-500 hover:backdrop-blur-none hover:backdropfilter hover:bg-opacity-30 hover:rounded-3xl cursor-pointer">
-                Judul Subcourse 3
-              </h1>
-            </li>
-            <li>
-              <h1 className="text-white text-lg font-poppins py-4 text-center hover:bg-gray-500 hover:backdrop-blur-none hover:backdropfilter hover:bg-opacity-30 hover:rounded-3xl cursor-pointer">
-                Judul Subcourse 4
-              </h1>
-            </li>
-            <li>
-              <h1 className="text-white text-lg font-poppins py-4 text-center hover:bg-gray-500 hover:backdrop-blur-none hover:backdropfilter hover:bg-opacity-30 hover:rounded-3xl cursor-pointer">
-                Judul Subcourse 5
-              </h1>
-            </li>
-            <li>
-              <h1 className="text-white text-lg font-poppins py-4 text-center hover:bg-gray-500 hover:backdrop-blur-none hover:backdropfilter hover:bg-opacity-30 hover:rounded-3xl cursor-pointer">
-                Judul Subcourse 6
-              </h1>
-            </li>
-            <li>
-              <h1 className="text-white text-lg font-poppins py-4 text-center hover:bg-gray-500 hover:backdrop-blur-none hover:backdropfilter hover:bg-opacity-30 hover:rounded-3xl cursor-pointer">
-                Judul Subcourse 7
-              </h1>
-            </li>
-            <li>
-              <h1 className="text-white text-lg font-poppins py-4 text-center hover:bg-gray-500 hover:backdrop-blur-none hover:backdropfilter hover:bg-opacity-30 hover:rounded-3xl cursor-pointer">
-                Judul Subcourse 8
-              </h1>
-            </li>
-            <li>
-              <h1 className="text-white text-lg font-poppins py-4 text-center hover:bg-gray-500 hover:backdrop-blur-none hover:backdropfilter hover:bg-opacity-30 hover:rounded-3xl cursor-pointer">
-                Judul Subcourse 9
-              </h1>
-            </li>
-            <li>
-              <h1 className="text-white text-lg font-poppins text-center py-4 hover:bg-gray-500 hover:backdrop-blur-none hover:backdropfilter hover:bg-opacity-30 hover:rounded-3xl cursor-pointer">
-                Judul Subcourse 10
-              </h1>
-            </li>
+            {listSubcourse &&
+              listSubcourse.map((subcourse, i) => (
+                <li>
+                  <h1 className="text-white text-md font-poppins py-4 hover:bg-gray-500 hover:backdrop-blur-none hover:backdropfilter hover:bg-opacity-30 hover:rounded-3xl cursor-pointer p-3">
+                    {subcourse.title}
+                  </h1>
+                </li>
+              ))}
           </ul>
         </div>
 
         <Separator orientation="vertical" className="mx-5" />
 
-        <div className="w-fit h-5/6 ml-3 bg-white rounded-xl backdrop-filter backdrop-blur-none bg-opacity-60 z-10 pt-5 px-8">
-          <ScrollArea className="h-full">
-            <div className="h-full overflow-y-auto px-1">
-              <h1 className="text-4xl font-poppins font-semibold tracking-wide pb-6">
-                Ini Judul Subcourse 1
-              </h1>
-              <div className="flex justify-center items-center py-3">
-                <iframe
-                  className="w-2/3 aspect-video"
-                  src="https://www.youtube.com/embed/tgbNymZ7vqY"
-                  title="Video Player"
-                ></iframe>
-              </div>
-              <p className="mt-3 font-md font-poppins text-lg">
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Veniam
-                eius quaerat nihil nostrum quas. Neque asperiores beatae a
-                facere iure vero autem architecto, totam itaque voluptas fugiat?
-                Unde, placeat ipsam! Lorem ipsum dolor sit amet consectetur
-                adipisicing elit. Veniam eius quaerat nihil nostrum quas. Neque
-                asperiores beatae a facere iure vero autem architecto, totam
-                itaque voluptas fugiat? Unde, placeat ipsam! Lorem ipsum dolor
-                sit amet consectetur adipisicing elit. Veniam eius quaerat nihil
-                nostrum quas. Neque asperiores beatae a facere iure vero autem
-                architecto, totam itaque voluptas fugiat? Unde, placeat ipsam!
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Veniam
-                eius quaerat nihil nostrum quas. Neque asperiores beatae a
-                facere iure vero autem architecto, totam itaque voluptas fugiat?
-                Unde, placeat ipsam! Lorem ipsum dolor sit amet consectetur
-                adipisicing elit. Veniam eius quaerat nihil nostrum quas. Neque
-                asperiores beatae a facere iure vero autem architecto, totam
-                itaque voluptas fugiat? Unde, placeat ipsam!
-              </p>
-              <div className="flex justify-end py-6 pt-4">
-                <Button className="bg-[#FEAE33] text-black text-lg font-bold rounded-full px-14 py-6 hover:bg-[#E19323] transition-transform duration-200 transform hover:scale-105">
-                  Lanjut!
-                </Button>
-              </div>
-            </div>
-          </ScrollArea>
-        </div>
+        <Subcourse />
       </div>
     </main>
   );
