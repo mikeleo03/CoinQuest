@@ -100,14 +100,17 @@ const singupPage = () => {
         localStorage.setItem("session", userId);
         console.log("User ID saved to local storage:", userId);
       } else {
-        // Handle error response here
-        /* toast.error('Registrasi tidak berhasil :( periksa kembali data masukan kamu', {
-          position: toast.POSITION.TOP_RIGHT
-        }); */
-        toast({
-          title: "Registrasi tidak berhasil :(",
-          description: "Periksa kembali data masukan kamu ya!",
-        })
+        if (response.status == 400) {
+          toast({
+            title: "Registrasi tidak berhasil :(",
+            description: "Email mu sudah pernah digunakan, gunakan email lain ya!",
+          })
+        } else {
+          toast({
+            title: "Registrasi tidak berhasil :(",
+            description: "Periksa kembali data masukan kamu ya!",
+          })
+        }
       }
     } catch (error) {
       // Handle network or other errors here
