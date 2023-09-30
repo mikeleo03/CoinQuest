@@ -87,14 +87,14 @@ const goalPage = () => {
                     <div>
                     {[1, 2, 3].map((i) => (
                         <div key={i} className="flex-[0_0_90%] md:flex-[0_0_50%]">
-                            <Skeleton className="z-10 bg-gray-400 bg-clip-padding backdrop-filter backdrop-blur-none bg-opacity-30 border text-white rounded-xl m-2 justify-center items-center">
+                            <Skeleton className="z-10 h-[310px] w-[606px] bg-gray-400 bg-clip-padding backdrop-filter backdrop-blur-none bg-opacity-30 border text-white rounded-xl m-2 justify-center items-center">
                             </Skeleton>
                         </div>
                     ))}
                     </div>
                 ) : (
                     <Slider options={{ align: "center" }}>
-                        {listGoals.length > 0 ? (
+                        {listGoals ? (
                             listGoals.map((goal, i) => (
                                 <div key={i} className="flex-[0_0_90%] md:flex-[0_0_50%]">
                                     <GoalCard
