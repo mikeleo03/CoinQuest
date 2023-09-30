@@ -29,11 +29,50 @@ import {
 interface ChatbotProps {}
 
 const Chatbot: React.FC<ChatbotProps> = () => {
-  const [questions, setQuestions] = useState<string[]>([]);
-
+  const userId = localStorage.getItem("session");
+  const [questions, setQuestions] = useState<{ user: string; ai: string }[]>(
+    []
+  );
+  const [user, setUser] = useState("");
   const addQuestion = (question: string) => {
-    setQuestions([...questions, question]);
+    const aiResponse = generateAIResponse(question); // Fungsi untuk menghasilkan respons AI
+    setQuestions([...questions, { user: question, ai: aiResponse }]);
   };
+
+  if (userId !== null) {
+    fetch(`/api/user/${userId}`, {
+      method: 'GET',
+      headers: {
+        "Content-type": "application/json; charset=UTF-8",
+        "user-id": userId,
+      },
+    })
+    .then((res) => res.json())
+    .then((data) => {
+      setUser(data.data.name)
+    })
+  } else {
+    setUser('User')
+  }
+
+  const generateAIResponse = (userQuestion: string): string => {
+    if (userQuestion.includes("Apa itu uang?")) {
+      return "Uang adalah alat tukar yang digunakan untuk membeli barang dan jasa.";
+    } else if (userQuestion.includes("Bagaimana cara menabung?")) {
+      return "Menabung adalah cara menyimpan uang secara teratur. Anda dapat memulai dengan menyisihkan sebagian uang Anda setiap bulan.";
+    } else if (userQuestion.includes("Kenapa penting menabung?")) {
+      return "Menabung penting karena dapat membantu Anda merencanakan masa depan Anda dan memiliki uang cadangan untuk kebutuhan mendesak.";
+    } else if (userQuestion.includes("Apa bedanya menabung dan investasi?")) {
+      return "Menabung adalah menyimpan uang Anda di bank atau tempat lain yang aman. Investasi adalah cara untuk mengalokasikan uang Anda untuk memperoleh keuntungan lebih besar dalam jangka panjang.";
+    } else if (userQuestion.includes("Apa itu bunga?")) {
+      return "Bunga adalah uang ekstra yang Anda dapatkan saat Anda menabung di bank atau meminjam uang. Ini adalah imbalan atas penggunaan uang Anda oleh orang lain.";
+    } else if (userQuestion.includes("Bagaimana cara mendapatkan uang?")) {
+      return "Anda dapat mendapatkan uang dengan bekerja, menjual barang atau jasa, atau melalui investasi. Penting untuk belajar cara mengelola uang dengan bijak.";
+    } else {
+      return "Maaf, saya tidak mengerti pertanyaan Anda. Silakan tanyakan pertanyaan lain seputar finansial.";
+    }
+  };
+  
 
   return (
     <TooltipProvider>
@@ -60,27 +99,25 @@ const Chatbot: React.FC<ChatbotProps> = () => {
                     </p>
                   </div>
                   <div className="bg-gray-400 bg-clip-padding backdrop-filter backdrop-blur-none bg-opacity-30 border border-gray-100 grid overflow-y-auto max-h-[20rem]">
-                    {questions.map((question, index) => (
+                    {questions.map((qna, index) => (
                       <div key={index}>
                         <Label
                           htmlFor={`chatbox-${index}`}
-                          className={`${
-                            index % 2 === 0
-                              ? "text-right float-right pr-5 flex"
-                              : "text-left float-left pl-5 flex"
-                          } font-bold`}
+                          className={`right float-right pr-5 flex font-bold pt-2`}
                         >
-                          {index % 2 === 0 ? "User" : "AI"}
+                          {user}
                         </Label>
                         <div
-                          className={`${
-                            index % 2 === 0
-                              ? "float-right clear-right text-right px-5"
-                              : "float-left clear-left text-left px-5"
-                          } py-2 mx-3 bg-[#FEAE33] rounded-lg border-solid border-2 max-w-4/5 my-2 `}
-                          style={{ clear: index % 2 === 0 ? "right" : "left" }}
+                          className={`py-2 mx-3 bg-[#FEAE33] rounded-lg border-solid border-2 max-w-4/5 my-2 float-right text-right px-5`}
+                          style={{ clear: index % 2 === 0 ? "right" : "right" }}
                         >
-                          {question}
+                          {qna.user}
+                        </div>
+                        <div
+                          className={`py-2 mx-3 bg-[#33B2FE] rounded-lg border-solid border-2 my-2 float-left text-left max-w-[20rem] px-5 `}
+                          style={{ clear: index % 2 === 0 ? "right" : "right" }}
+                        >
+                          {qna.ai}
                         </div>
                       </div>
                     ))}
