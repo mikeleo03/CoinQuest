@@ -56,19 +56,18 @@ const columns = [
 ];
 
 interface savingData {
-  id : number,
-  date : Date,
-  amount : number
+  id: number;
+  date: Date;
+  amount: number;
 }
 
 const SavingsPage = () => {
   const videoRef = useRef<HTMLVideoElement | null>(null);
+  const verifyButtonRef = useRef<HTMLButtonElement | null>(null);
+
   const [webcamActive, setWebcamActive] = useState(false);
   const [stream, setStream] = useState<MediaStream | null>(null);
   const [videoPlaying, setVideoPlaying] = useState(false);
-  const [showPopover, setShowPopover] = useState(false);
-  const verifyButtonRef = useRef<HTMLButtonElement | null>(null);
-
   const [capturedImage, setCapturedImage] = useState<string | null>(null);
   const [showSpinner, setShowSpinner] = useState(false);
   const [verificationSuccess, setVerificationSuccess] = useState(false);
@@ -96,10 +95,13 @@ const SavingsPage = () => {
         .then((data) => {
           // Update state
           console.log(data.data);
-          let sums = data.data.reduce((acc : number, curr : savingData) => acc + curr.amount, 0);
-          const formattedSum = sums.toLocaleString('id-ID', {
-            style: 'currency',
-            currency: 'IDR'
+          let sums = data.data.reduce(
+            (acc: number, curr: savingData) => acc + curr.amount,
+            0
+          );
+          const formattedSum = sums.toLocaleString("id-ID", {
+            style: "currency",
+            currency: "IDR",
           });
           setRows(data.data);
           setTotal(formattedSum);
@@ -110,6 +112,33 @@ const SavingsPage = () => {
     }
 
     setLoading(false);
+  }, []);
+
+  useEffect(() => {
+    const startWebcam = async () => {
+      try {
+        const userMediaStream = await navigator.mediaDevices.getUserMedia({
+          video: true,
+        });
+
+        if (videoRef.current) {
+          videoRef.current.srcObject = userMediaStream;
+          setStream(userMediaStream);
+          videoRef.current.onloadedmetadata = () => {
+            setWebcamActive(true);
+          };
+        }
+      } catch (error) {
+        console.error("Error accessing webcam:", error);
+      }
+    };
+
+    startWebcam(); // Start webcam when the component mounts
+
+    return () => {
+      // Clean up by stopping the webcam when the component unmounts
+      stopWebcam();
+    };
   }, []);
 
   const startWebcam = async () => {
@@ -140,13 +169,6 @@ const SavingsPage = () => {
     }
   };
 
-  const playVideo = () => {
-    if (videoRef.current && !videoPlaying) {
-      videoRef.current.play();
-      setVideoPlaying(true);
-    }
-  };
-
   const stopVideo = () => {
     if (videoRef.current && videoPlaying) {
       videoRef.current.pause();
@@ -171,12 +193,10 @@ const SavingsPage = () => {
     setTimeout(() => {
       setVerificationSuccess(true);
       setShowSpinner(false);
+      stopVideo(); // Memanggil stopVideo() setelah mengambil gambar
+      stopWebcam(); // Memanggil stopWebcam() setelah mengambil gambar
     }, 3000);
   };
-
-  useEffect(() => {
-    startWebcam();
-  }, []);
 
   return (
     <main className="flex min-h-screen w-full">
@@ -188,38 +208,39 @@ const SavingsPage = () => {
             <h1 className="font-poppins text-2xl items-start text-center font-bold">
               History Menabung
             </h1>
-            {loading ? ( 
-              <Skeleton className="w-[275px] h-[301px]"/>
+            {loading ? (
+              <Skeleton className="w-[275px] h-[301px]" />
             ) : (
-            <div className="rounded-md border-hidden text-black w-full bg-black">
-              <Table className="h-1/10 overflow-y-auto bg-black">
-                <TableHeader columns={columns} className="bg-black">
-                  {(column: { key: any; label: any }) => (
-                    <TableColumn key={column.key}>{column.label}</TableColumn>
-                  )}
-                </TableHeader>
-                <TableBody items={rows}>
-                  {(item) => (
-                    <TableRow key={item.id}>
-                      {(columnKey) => (
-                        <TableCell>
-                          {columnKey === "date"
-                            ? new Date(item.date).toLocaleDateString() // Konversi tanggal menjadi string
-                            : columnKey === "day"
-                            ? new Date(item.date).toLocaleDateString(
-                                undefined,
-                                {
-                                  weekday: "long",
-                                }
-                              ) // Dapatkan nama hari
-                            : getKeyValue(item, columnKey)}
-                        </TableCell>
-                      )}
-                    </TableRow>
-                  )}
-                </TableBody>
-              </Table>
-            </div>)}
+              <div className="rounded-md border-hidden text-black w-full bg-black">
+                <Table className="h-1/10 overflow-y-auto bg-black">
+                  <TableHeader columns={columns} className="bg-black">
+                    {(column: { key: any; label: any }) => (
+                      <TableColumn key={column.key}>{column.label}</TableColumn>
+                    )}
+                  </TableHeader>
+                  <TableBody items={rows}>
+                    {(item) => (
+                      <TableRow key={item.id}>
+                        {(columnKey) => (
+                          <TableCell>
+                            {columnKey === "date"
+                              ? new Date(item.date).toLocaleDateString() // Konversi tanggal menjadi string
+                              : columnKey === "day"
+                              ? new Date(item.date).toLocaleDateString(
+                                  undefined,
+                                  {
+                                    weekday: "long",
+                                  }
+                                ) // Dapatkan nama hari
+                              : getKeyValue(item, columnKey)}
+                          </TableCell>
+                        )}
+                      </TableRow>
+                    )}
+                  </TableBody>
+                </Table>
+              </div>
+            )}
           </div>
           <div className="space-y-5  font-poppins text-xl items-start ">
             <div className="flex flex-col justify-center items-center">
@@ -240,8 +261,8 @@ const SavingsPage = () => {
             <div className="space-y-5">
               <h1>Masukkan jumlah uang yang ingin ditabung :</h1>
               <div className="flex space-x-5">
-                <Input 
-                  className="w-2/3 text-black" 
+                <Input
+                  className="w-2/3 text-black"
                   placeholder="Tambahkan nilai, misal Rp 2.000,00"
                   value={nominalAdd}
                   onChange={(e) => setNominalAdd(parseInt(e.target.value))}
@@ -251,6 +272,7 @@ const SavingsPage = () => {
                     <Button
                       ref={verifyButtonRef}
                       className="bg-[#FEAE33] text-black font-bold rounded-md px-10 hover:bg-[#E19323] transition-transform duration-300 transform hover:scale-110"
+                      onClick={startWebcam} // Memanggil fungsi startWebcam saat tombol diklik
                     >
                       Verifikasi
                     </Button>
@@ -297,9 +319,6 @@ const SavingsPage = () => {
                             )}
                           </Button>
                         </PopoverTrigger>
-                        <PopoverContent>
-                          <h1 className="text-2xl text-green-500">Berhasil!</h1>
-                        </PopoverContent>
                       </Popover>
                     </DialogFooter>
                   </DialogContent>
