@@ -24,6 +24,14 @@ export default function RootLayout({
       <body className={inter.className}>
         {/* Navbar */}
         <Navbar />
+
+        {/* Background */}
+        <img
+            src="/assets/background.png"
+            alt="background image"
+            className="fixed top-0 left-0 w-screen h-screen"
+            draggable='false'
+        />
         {children}
       </body>
     </html>

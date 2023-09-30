@@ -66,14 +66,6 @@ const goalPage = () => {
 
     return (
         <main className="flex min-h-screen w-full">
-            {/* Background */}
-            <img
-                src="/assets/background.png"
-                alt="background image"
-                className="fixed top-0 left-0 w-screen h-screen"
-                draggable='false'
-            />
-
             <img
                 src="/assets/sky/stars.png"
                 alt="background stars"

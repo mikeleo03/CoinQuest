@@ -76,14 +76,6 @@ const loginPage = () => {
 
   return (
     <main className="flex justify-center items-center min-h-screen">
-      {/* Background */}
-      <img
-        src="/assets/background.png"
-        alt="background image"
-        className="fixed top-0 left-0 w-screen h-screen"
-        draggable='false'
-      />
-
       {/* Login */}
       <Card className="w-fit z-10 p-11 border-none bg-gray-400 bg-clip-padding backdrop-filter backdrop-blur-none bg-opacity-30 border border-gray-100 text-white rounded-3xl">
         <CardHeader>

@@ -13,8 +13,6 @@ import {
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import Image from "next/image";
-import { ScrollArea } from "@/components/ui/scroll-area";
-import { useInfiniteScroll } from "@nextui-org/use-infinite-scroll";
 import {
   Popover,
   PopoverContent,
@@ -177,14 +175,6 @@ const SavingsPage = () => {
 
   return (
     <main className="flex min-h-screen w-full">
-      {/* Background */}
-      <img
-        src="/assets/background.png"
-        alt="background image"
-        className="fixed top-0 left-0 w-screen h-screen"
-        draggable="false"
-      />
-
       {/* Savings Page */}
       <div className="flex flex-col items-center justify-center w-full h-screen text-white z-20 space-y-5">
         <h1 className="font-riffic text-6xl py-10">Tabungan</h1>

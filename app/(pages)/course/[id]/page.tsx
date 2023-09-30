@@ -111,14 +111,6 @@ const CoursePage = () => {
 
   return (
     <main className="flex flex-col justify-start items-start overflow-hidden h-screen px-5 py-5">
-      {/* Background */}
-      <img
-        src="/assets/background.png"
-        alt="background image"
-        className="fixed top-0 left-0 w-screen h-screen"
-        draggable="false"
-      />
-
       <div className="w-screen flex flex-row justify-between items-center px-8 pt-8 pb-5 h-1/6 z-10">
         <h1 className="text-4xl text-white font-riffic tracking-wide">
           {titleCourse}

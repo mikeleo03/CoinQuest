@@ -127,14 +127,6 @@ const page = () => {
   return (
     <main className="flex min-h-screen w-full">
       <Toaster />
-      {/* Background */}
-      <img
-        src="/assets/background.png"
-        alt="background image"
-        className="fixed top-0 left-0 w-screen h-screen"
-        draggable="false"
-      />
-
       {/* Profile Page */}
       <div className="flex w-full px-40 py-32 pb-20 z-20 space-x-52">
         {/* Avatar Info */}
