@@ -53,7 +53,7 @@ const GoalCard: React.FC<CardProps> = ({ id_goal, title, desc, price, is_done, o
 
   return (
     <Dialog>
-      <div className="z-10 bg-gray-400 bg-clip-padding backdrop-filter backdrop-blur-none bg-opacity-30 border text-white rounded-xl m-2 justify-center items-center">
+      <div className="z-10 bg-gray-600 bg-clip-padding backdrop-filter backdrop-blur-none bg-opacity-30 border text-white rounded-xl m-2 justify-center items-center">
         <div className="flex justify-center items-center h-20">
           <img
             src="/assets/trophy.png"

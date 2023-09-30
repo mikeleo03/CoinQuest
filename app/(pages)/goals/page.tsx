@@ -3,6 +3,7 @@
 import React, { useState, useEffect } from "react";
 import Slider from "@/components/ui/slider";
 import GoalCard from "@/components/ui/goal-cards";
+import { Skeleton } from "@/components/ui/skeleton"
 
 interface dataGoals {
     id: number;
@@ -15,14 +16,15 @@ interface dataGoals {
 const goalPage = () => {
     const [listGoals, setListGoals] = useState<dataGoals[]>([]);
     const [listQuest, setListQuest] = useState<number[]>([]);
+    const [loading, setLoading] = useState(true);
 
     useEffect(() => {
-
         // Get the value from local storage
         const userId = localStorage.getItem('session');
 
         // Check if the value exists
         if (userId !== null) {
+            setLoading(true);
             console.log('Value from local storage:', userId);
             fetch("/api/all-goal", {
                 method: "GET",
@@ -41,6 +43,7 @@ const goalPage = () => {
             console.log('Value not found in local storage');
             // ini redirect ke login
         }
+        setLoading(false);
 
     }, []);
 
@@ -80,15 +83,40 @@ const goalPage = () => {
                 </h1>
 
                 <div className="flex flex-row w-full justify-center items-center text-center">
+                {loading ? (
+                    <div>
+                    {[1, 2, 3].map((i) => (
+                        <div key={i} className="flex-[0_0_90%] md:flex-[0_0_50%]">
+                            <Skeleton className="z-10 bg-gray-400 bg-clip-padding backdrop-filter backdrop-blur-none bg-opacity-30 border text-white rounded-xl m-2 justify-center items-center">
+                            </Skeleton>
+                        </div>
+                    ))}
+                    </div>
+                ) : (
                     <Slider options={{ align: "center" }}>
-                        {listGoals ? (listGoals.map((goal, i) => (
-                            <div key={i} className="flex-[0_0_90%] md:flex-[0_0_50%]">
-                                <GoalCard id_goal={goal.id} title={goal.title} desc={goal.desc} price={goal.price} is_done={goal.is_done} onClick={handleCardClick} listQuest={listQuest}/>
-                            </div>
-                        ))) : (
-                            <h1>Tidak ada goals saat ini.</h1>
+                        {listGoals.length > 0 ? (
+                            listGoals.map((goal, i) => (
+                                <div key={i} className="flex-[0_0_90%] md:flex-[0_0_50%]">
+                                    <GoalCard
+                                        id_goal={goal.id}
+                                        title={goal.title}
+                                        desc={goal.desc}
+                                        price={goal.price}
+                                        is_done={goal.is_done}
+                                        onClick={handleCardClick}
+                                        listQuest={listQuest}
+                                    />
+                                </div>
+                            ))
+                        ) : (
+                            [1, 2, 3].map((i) => (
+                                <div key={i} className="flex-[0_0_90%] md:flex-[0_0_50%]">
+                                  <Skeleton className="h-[310px] w-[606px] z-10 bg-gray-400 bg-clip-padding backdrop-filter backdrop-blur-none bg-opacity-30 border text-white rounded-xl m-2 justify-center items-center"></Skeleton>
+                                </div>
+                            ))
                         )}
                     </Slider>
+                )}
                 </div>
             </div>
         </main>
