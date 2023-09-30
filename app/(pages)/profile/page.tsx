@@ -4,19 +4,20 @@ import React, { useState, useEffect } from "react";
 import { Pencil } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import { Toaster } from "@/components/ui/toaster"
-import { useToast } from "@/components/ui/use-toast"
+import { Toaster } from "@/components/ui/toaster";
+import { useToast } from "@/components/ui/use-toast";
+import Chatbot from "@/components/ui/chatbot";
 
 interface userData {
-  birthDate : Date,
-  coin : number,
-  email : string,
-  id : number,
-  name : string,
-  parent_email : string,
-  parent_photo : string,
-  password : string,
-  profpic : string
+  birthDate: Date;
+  coin: number;
+  email: string;
+  id: number;
+  name: string;
+  parent_email: string;
+  parent_photo: string;
+  password: string;
+  profpic: string;
 }
 
 const page = () => {
@@ -92,13 +93,13 @@ const page = () => {
         method: "PATCH",
         body: JSON.stringify({
           name: inputUsername,
-          birthdate : inputDate,
+          birthdate: inputDate,
           email: inputEmail,
-          parent_email : inputParentEmail,
+          parent_email: inputParentEmail,
         }),
         headers: {
           "Content-type": "application/json; charset=UTF-8",
-        }
+        },
       });
 
       if (response.ok) {
@@ -106,19 +107,19 @@ const page = () => {
         toast({
           title: "Berhasil!",
           description: "Datamu sudah diperbaharui",
-        })
+        });
       } else {
         toast({
           title: "Edit tidak berhasil :(",
           description: "Periksa kembali format masukanmu ya!",
-        })
+        });
       }
     } catch (error) {
       // Handle network or other errors here
       toast({
         title: "Edit tidak berhasil :(",
         description: "Periksa kembali format masukanmu ya!",
-      })
+      });
     }
 
     setIsEditing(!isEditing);
@@ -243,6 +244,9 @@ const page = () => {
               Save
             </Button>
           )}
+          <div className="absolute right-0 bottom-0 p-10">
+            <Chatbot />
+          </div>
         </div>
       </div>
     </main>
