@@ -1,7 +1,6 @@
 "use client"
 
 import React, { useState, useEffect } from "react";
-import Navbar from "@/components/ui/navbar";
 import Slider from "@/components/ui/slider";
 import GoalCard from "@/components/ui/goal-cards";
 
@@ -81,9 +80,6 @@ const goalPage = () => {
                 className="fixed top-0 rotate-90 left-0 bg-repeat-x w-screen"
                 draggable='false'
             />
-
-            {/* Navbar */}
-            <Navbar />
 
             {/* Main */}
             <div className="flex flex-col px-20 py-32 w-full">

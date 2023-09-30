@@ -1,7 +1,6 @@
 import React from "react";
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
-import Navbar from "@/components/ui/navbar";
 
 const homePage = () => {
   return (
@@ -13,9 +12,6 @@ const homePage = () => {
             className="fixed top-0 left-0 w-screen h-screen"
             draggable='false'
         />
-
-        {/* Navbar */}
-        <Navbar />
 
         {/* Main */}
         <div className="flex flex-row w-full px-20 py-32 pb-20">

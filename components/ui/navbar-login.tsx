@@ -52,36 +52,36 @@ const navbar = () => {
         <div className="w-full mx-auto px-12">
           <div className="flex items-center justify-between h-24">
             <div className="flex-shrink-0">
-              <a href="/">
+              <Link href="/">
                 <img
                   className="h-12 w-auto"
                   src="/assets/logo.png"
                   alt="logo"
                   draggable="false"
                 />
-              </a>
+              </Link>
             </div>
             <div className="items-center">
               <div className="ml-10 flex items-center space-x-7">
-                <a
+                <Link
                   href="/goals"
                   className=" hover:scale-110 text-white px-5 py-2 rounded-md text-[24px] font-medium font-poppins items-center transition-transform duration-300"
                 >
                   Goals
-                </a>
-                <a
+                </Link>
+                <Link
                   href="/courses"
                   className=" hover:scale-110 text-white px-5 py-2 rounded-md text-[24px] font-medium font-poppins items-center transition-transform duration-300"
                 >
                   Course
-                </a>
-                <a
+                </Link>
+                <Link
                   href="/saving"
                   className=" hover:scale-110 text-white px-5 py-2 rounded-md text-[24px] font-medium font-poppins items-center transition-transform duration-300"
                 >
                   Tabungan
-                </a>
-                <a
+                </Link>
+                <Link
                   href="/profile"
                   className="text-white hover:scale-110 hover:text-white px-5 py-2 rounded-md font-medium font-poppins w-full transition-transform duration-300"
                 >
@@ -110,7 +110,7 @@ const navbar = () => {
                       </div>
                     </div>
                   </div>
-                </a>
+                </Link>
                 <Link
                   className="inline-flex items-center px-4 py-2 border border-transparent text-base font-medium rounded-md text-white bg-red-500 hover:bg-red-600 transition-transform duration-300 transform hover:scale-110"
                   href="/"

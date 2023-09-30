@@ -1,7 +1,6 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
-import Navbar from "@/components/ui/navbar";
 import { Pencil } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
@@ -135,9 +134,6 @@ const page = () => {
         className="fixed top-0 left-0 w-screen h-screen"
         draggable="false"
       />
-
-      {/* Navbar */}
-      <Navbar />
 
       {/* Profile Page */}
       <div className="flex w-full px-40 py-32 pb-20 z-20 space-x-52">

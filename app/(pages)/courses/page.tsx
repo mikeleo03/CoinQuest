@@ -10,7 +10,6 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import Navbar from "@/components/ui/navbar";
 import Link from "next/link";
 
 interface dataCourse {
@@ -58,9 +57,6 @@ const CoursesPage = () => {
         className="fixed top-0 left-0 w-screen h-screen"
         draggable="false"
       />
-
-      {/* Navbar */}
-      <Navbar />
 
       <div className="flex flex-col py-20 w-full">
         <h1 className="z-10 text-6xl text-white text-center font-riffic tracking-wide p-6">

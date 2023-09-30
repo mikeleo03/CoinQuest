@@ -1,7 +1,6 @@
 "use client";
 
 import React, { useEffect, useRef, useState } from "react";
-import Navbar from "@/components/ui/navbar-login";
 import {
   Table,
   TableHeader,
@@ -37,54 +36,6 @@ export type Saving = {
   date: Date;
   amount: number;
 };
-
-const rows = [
-  {
-    id: 1,
-    date: new Date("2023-09-28"),
-    amount: 1000000,
-  },
-  {
-    id: 2,
-    date: new Date("2023-09-27"),
-    amount: 500000,
-  },
-  {
-    id: 3,
-    date: new Date("2023-09-26"),
-    amount: 800000,
-  },
-  {
-    id: 4,
-    date: new Date("2023-09-28"),
-    amount: 1000000,
-  },
-  {
-    id: 5,
-    date: new Date("2023-09-27"),
-    amount: 500000,
-  },
-  {
-    id: 6,
-    date: new Date("2023-09-26"),
-    amount: 800000,
-  },
-  {
-    id: 7,
-    date: new Date("2023-09-28"),
-    amount: 1000000,
-  },
-  {
-    id: 8,
-    date: new Date("2023-09-27"),
-    amount: 500000,
-  },
-  {
-    id: 9,
-    date: new Date("2023-09-26"),
-    amount: 800000,
-  },
-];
 
 const columns = [
   {
@@ -233,9 +184,6 @@ const SavingsPage = () => {
         className="fixed top-0 left-0 w-screen h-screen"
         draggable="false"
       />
-
-      {/* Navbar */}
-      <Navbar />
 
       {/* Savings Page */}
       <div className="flex flex-col items-center justify-center w-full h-screen text-white z-20 space-y-5">
