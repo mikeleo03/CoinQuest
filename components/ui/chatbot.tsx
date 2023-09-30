@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Button } from "./button";
 import Image from "next/image";
 import {
@@ -29,7 +29,6 @@ import {
 interface ChatbotProps {}
 
 const Chatbot: React.FC<ChatbotProps> = () => {
-  const userId = localStorage.getItem("session");
   const [questions, setQuestions] = useState<{ user: string; ai: string }[]>(
     []
   );
@@ -39,21 +38,24 @@ const Chatbot: React.FC<ChatbotProps> = () => {
     setQuestions([...questions, { user: question, ai: aiResponse }]);
   };
 
-  if (userId !== null) {
-    fetch(`/api/user/${userId}`, {
-      method: 'GET',
-      headers: {
-        "Content-type": "application/json; charset=UTF-8",
-        "user-id": userId,
-      },
-    })
-    .then((res) => res.json())
-    .then((data) => {
-      setUser(data.data.name)
-    })
-  } else {
-    setUser('User')
-  }
+  useEffect(() => {
+    const userId = localStorage.getItem("session");
+    if (userId !== null) {
+      fetch(`/api/user/${userId}`, {
+        method: "GET",
+        headers: {
+          "Content-type": "application/json; charset=UTF-8",
+          "user-id": userId,
+        },
+      })
+        .then((res) => res.json())
+        .then((data) => {
+          setUser(data.data.name);
+        });
+    } else {
+      setUser("User");
+    }
+  }, []);
 
   const generateAIResponse = (userQuestion: string): string => {
     if (userQuestion.includes("Apa itu uang?")) {
@@ -72,7 +74,6 @@ const Chatbot: React.FC<ChatbotProps> = () => {
       return "Maaf, saya tidak mengerti pertanyaan Anda. Silakan tanyakan pertanyaan lain seputar finansial.";
     }
   };
-  
 
   return (
     <TooltipProvider>
