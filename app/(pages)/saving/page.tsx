@@ -28,6 +28,7 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 import { Spinner } from "@nextui-org/react";
+import { Skeleton } from "@/components/ui/skeleton";
 
 export type Saving = {
   id: number;
@@ -74,6 +75,7 @@ const SavingsPage = () => {
   const [rows, setRows] = useState<savingData[]>([]);
   const [total, setTotal] = useState("");
   const [nominalAdd, setNominalAdd] = useState(0);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     // Get the value from local storage
@@ -81,6 +83,7 @@ const SavingsPage = () => {
 
     // Check if the value exists
     if (userId !== null) {
+      setLoading(true);
       console.log("Value from local storage:", userId);
       fetch(`/api/all-saving`, {
         method: "GET",
@@ -105,6 +108,8 @@ const SavingsPage = () => {
       console.log("Value not found in local storage");
       // ini redirect ke login
     }
+
+    setLoading(false);
   }, []);
 
   const startWebcam = async () => {
@@ -183,6 +188,9 @@ const SavingsPage = () => {
             <h1 className="font-poppins text-2xl items-start text-center font-bold">
               History Menabung
             </h1>
+            {loading ? ( 
+              <Skeleton className="w-[275px] h-[301px]"/>
+            ) : (
             <div className="rounded-md border-hidden text-black w-full bg-black">
               <Table className="h-1/10 overflow-y-auto bg-black">
                 <TableHeader columns={columns} className="bg-black">
@@ -211,7 +219,7 @@ const SavingsPage = () => {
                   )}
                 </TableBody>
               </Table>
-            </div>
+            </div>)}
           </div>
           <div className="space-y-5  font-poppins text-xl items-start ">
             <div className="flex flex-col justify-center items-center">

@@ -84,13 +84,13 @@ const goalPage = () => {
 
                 <div className="flex flex-row w-full justify-center items-center text-center">
                 {loading ? (
-                    <div>
-                    {[1, 2, 3].map((i) => (
-                        <div key={i} className="flex-[0_0_90%] md:flex-[0_0_50%]">
-                            <Skeleton className="z-10 h-[310px] w-[606px] bg-gray-400 bg-clip-padding backdrop-filter backdrop-blur-none bg-opacity-30 border text-white rounded-xl m-2 justify-center items-center">
-                            </Skeleton>
-                        </div>
-                    ))}
+                    <div className="flex flex-row overflow-hidden">
+                        {[1, 2, 3].map((i) => (
+                            <div key={i} className="flex-[0_0_90%] md:flex-[0_0_50%] mr-4">
+                                <Skeleton className="z-10 h-[310px] w-[606px] bg-gray-400 bg-clip-padding backdrop-filter backdrop-blur-none bg-opacity-30 border text-white rounded-xl m-2 justify-center items-center">
+                                </Skeleton>
+                            </div>
+                        ))}
                     </div>
                 ) : (
                     <Slider options={{ align: "center" }}>
@@ -111,7 +111,8 @@ const goalPage = () => {
                         ) : (
                             [1, 2, 3].map((i) => (
                                 <div key={i} className="flex-[0_0_90%] md:flex-[0_0_50%]">
-                                  <Skeleton className="h-[310px] w-[606px] z-10 bg-gray-400 bg-clip-padding backdrop-filter backdrop-blur-none bg-opacity-30 border text-white rounded-xl m-2 justify-center items-center"></Skeleton>
+                                    <Skeleton className="z-10 h-[310px] w-[606px] bg-gray-400 bg-clip-padding backdrop-filter backdrop-blur-none bg-opacity-30 border text-white rounded-xl m-2 justify-center items-center">
+                                    </Skeleton>
                                 </div>
                             ))
                         )}
