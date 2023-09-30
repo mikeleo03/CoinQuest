@@ -11,7 +11,8 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import Link from "next/link";
-import { Skeleton } from "@/components/ui/skeleton"
+import { Skeleton } from "@/components/ui/skeleton";
+import Chatbot from "@/components/ui/chatbot";
 
 interface dataCourse {
   id: number;
@@ -61,14 +62,15 @@ const CoursesPage = () => {
         </h1>
 
         <div className="flex flex-wrap justify-center">
-          {loading ? (
-            [1, 2, 3, 4, 5, 6, 7, 8].map((i) => (
-              <Skeleton key={i} className="w-[288px] h-[396px] z-10 border-none bg-gray-400 bg-clip-padding backdrop-filter backdrop-blur-none bg-opacity-30 border border-gray-100 text-white rounded-3l m-2">
-              </Skeleton>
-            ))
-          ) : (
-            listCourse ? (
-              listCourse.map((course, i) => (
+          {loading
+            ? [1, 2, 3, 4, 5, 6, 7, 8].map((i) => (
+                <Skeleton
+                  key={i}
+                  className="w-[288px] h-[396px] z-10 border-none bg-gray-400 bg-clip-padding backdrop-filter backdrop-blur-none bg-opacity-30 border border-gray-100 text-white rounded-3l m-2"
+                ></Skeleton>
+              ))
+            : listCourse
+            ? listCourse.map((course, i) => (
                 <Card
                   key={i}
                   className="w-72 z-10 border-none bg-gray-400 bg-clip-padding backdrop-filter backdrop-blur-none bg-opacity-30 border border-gray-100 text-white rounded-3l m-2"
@@ -107,13 +109,15 @@ const CoursesPage = () => {
                   </CardFooter>
                 </Card>
               ))
-            ) : (
-              [1, 2, 3, 4, 5, 6, 7, 8].map((i) => (
-                <Skeleton key={i} className="w-[288px] h-[396px] z-10 border-none bg-gray-400 bg-clip-padding backdrop-filter backdrop-blur-none bg-opacity-30 border border-gray-100 text-white rounded-3l m-2">
-                </Skeleton>
-              ))
-            )
-          )}
+            : [1, 2, 3, 4, 5, 6, 7, 8].map((i) => (
+                <Skeleton
+                  key={i}
+                  className="w-[288px] h-[396px] z-10 border-none bg-gray-400 bg-clip-padding backdrop-filter backdrop-blur-none bg-opacity-30 border border-gray-100 text-white rounded-3l m-2"
+                ></Skeleton>
+              ))}
+          <div className="absolute z-20 right-0 bottom-0 p-10">
+            <Chatbot />
+          </div>
         </div>
       </div>
     </main>

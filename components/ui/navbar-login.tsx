@@ -3,6 +3,8 @@
 import React, { useState, useEffect } from "react";
 import { LogOut } from "lucide-react";
 import Link from "next/link";
+import Image from "next/image";
+import { Button } from "@nextui-org/react";
 
 const navbar = () => {
   const [user, setUser] = useState("");
@@ -53,12 +55,15 @@ const navbar = () => {
           <div className="flex items-center justify-between h-24">
             <div className="flex-shrink-0">
               <Link href="/">
-                <img
-                  className="h-12 w-auto"
-                  src="/assets/logo.png"
-                  alt="logo"
-                  draggable="false"
-                />
+                <Button className="bg-transparent h-fit hover:bg-transparent transition-transform duration-300 transform hover:scale-110">
+                  <Image
+                    src="/assets/logo1.png"
+                    alt="logo"
+                    draggable="false"
+                    width={150}
+                    height={150}
+                  />
+                </Button>
               </Link>
             </div>
             <div className="items-center">
@@ -73,13 +78,13 @@ const navbar = () => {
                   href="/courses"
                   className=" hover:scale-110 text-white px-5 py-2 rounded-md text-[24px] font-medium font-poppins items-center transition-transform duration-300"
                 >
-                  Course
+                  Courses
                 </Link>
                 <Link
                   href="/saving"
                   className=" hover:scale-110 text-white px-5 py-2 rounded-md text-[24px] font-medium font-poppins items-center transition-transform duration-300"
                 >
-                  Tabungan
+                  Savings
                 </Link>
                 <Link
                   href="/profile"

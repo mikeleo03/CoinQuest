@@ -244,7 +244,7 @@ const page = () => {
               Save
             </Button>
           )}
-          <div className="absolute right-0 bottom-0 p-10">
+          <div className="absolute z-20 right-0 bottom-0 p-10">
             <Chatbot />
           </div>
         </div>

@@ -4,7 +4,6 @@ import React, { useEffect, useState } from "react";
 
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
-import { ScrollArea } from "@/components/ui/scroll-area";
 import { Undo2 } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useUrl } from "nextjs-current-url";
@@ -110,8 +109,8 @@ const CoursePage = () => {
   }
 
   return (
-    <main className="flex flex-col justify-start items-start overflow-hidden h-screen px-5 py-5">
-      <div className="w-screen flex flex-row justify-between items-center px-8 pt-8 pb-5 h-1/6 z-10">
+    <main className="flex flex-col justify-start items-start overflow-hidden h-screen px-5 py-5 overflow-y-auto">
+      <div className="w-screen flex flex-row justify-between items-center px-8 pt-8 mt-16 pb-5 h-1/6 z-10">
         <h1 className="text-4xl text-white font-riffic tracking-wide">
           {titleCourse}
         </h1>

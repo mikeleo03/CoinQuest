@@ -29,6 +29,7 @@ import {
 } from "@/components/ui/dialog";
 import { Spinner } from "@nextui-org/react";
 import { Skeleton } from "@/components/ui/skeleton";
+import Chatbot from "@/components/ui/chatbot";
 
 export type Saving = {
   id: number;
@@ -202,7 +203,7 @@ const SavingsPage = () => {
     <main className="flex min-h-screen w-full">
       {/* Savings Page */}
       <div className="flex flex-col items-center justify-center w-full h-screen text-white z-20 space-y-5">
-        <h1 className="font-riffic text-6xl py-10">Tabungan</h1>
+        <h1 className="font-riffic text-6xl py-10">Savings</h1>
         <div className="flex space-x-40">
           <div className="space-y-5">
             <h1 className="font-poppins text-2xl items-start text-center font-bold">
@@ -325,6 +326,9 @@ const SavingsPage = () => {
                 </Dialog>
               </div>
             </div>
+          </div>
+          <div className="absolute z-20 right-0 bottom-0 text-black p-10">
+            <Chatbot />
           </div>
         </div>
       </div>
