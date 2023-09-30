@@ -10,6 +10,7 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog"
+import Link from 'next/link';
 
 interface CardProps {
   id_goal: number;
@@ -116,11 +117,11 @@ const GoalCard: React.FC<CardProps> = ({ id_goal, title, desc, price, is_done, o
                   <div key={i} className="flex flex-row justify-center items-center mb-2">
                     <div className="w-4/5">{task.desc}</div>
                     <div className="w-1/5">
-                      <a href={task.link}>
+                      <Link href={task.link}>
                         <button className="bg-[#FEAE33] text-black font-bold rounded-full px-3 py-1 hover:bg-[#E19323] transition-transform duration-200 transform hover:scale-105">
                           Let's Go
                         </button>
-                      </a>
+                      </Link>
                     </div>
                   </div>
               ))) : (<h3 className="justify-center text-center">Tidak ada.</h3>)}
@@ -150,11 +151,11 @@ const GoalCard: React.FC<CardProps> = ({ id_goal, title, desc, price, is_done, o
                   <div key={i} className="flex flex-row justify-center items-center mb-2">
                     <div className="w-4/5">{task.desc}</div>
                     <div className="w-1/5">
-                      <a href={task.link}>
+                      <Link href={task.link}>
                         <button className="bg-[#FEAE33] text-black font-bold rounded-full px-3 py-1 hover:bg-[#E19323] transition-transform duration-200 transform hover:scale-105">
                           Let's Go
                         </button>
-                      </a>
+                      </Link>
                     </div>
                   </div>
               ))) : (<h3 className="justify-center text-center">Tidak ada.</h3>)}
@@ -184,11 +185,11 @@ const GoalCard: React.FC<CardProps> = ({ id_goal, title, desc, price, is_done, o
                   <div key={i} className="flex flex-row justify-center items-center mb-2">
                     <div className="w-4/5">{task.desc}</div>
                     <div className="w-1/5">
-                      <a href={task.link}>
+                      <Link href={task.link}>
                         <button className="bg-[#FEAE33] text-black font-bold rounded-full px-3 py-1 hover:bg-[#E19323] transition-transform duration-200 transform hover:scale-105">
                           Let's Go
                         </button>
-                      </a>
+                      </Link>
                     </div>
                   </div>
               ))) : (<h3 className="justify-center text-center">Tidak ada.</h3>)}
@@ -218,11 +219,11 @@ const GoalCard: React.FC<CardProps> = ({ id_goal, title, desc, price, is_done, o
                   <div key={i} className="flex flex-row justify-center items-center mb-2">
                     <div className="w-4/5">{task.desc}</div>
                     <div className="w-1/5">
-                      <a href={task.link}>
+                      <Link href={task.link}>
                         <button className="bg-[#FEAE33] text-black font-bold rounded-full px-3 py-1 hover:bg-[#E19323] transition-transform duration-200 transform hover:scale-105">
                           Let's Go
                         </button>
-                      </a>
+                      </Link>
                     </div>
                   </div>
               ))) : (<h3 className="justify-center text-center">Tidak ada.</h3>)}
@@ -252,11 +253,11 @@ const GoalCard: React.FC<CardProps> = ({ id_goal, title, desc, price, is_done, o
                   <div key={i} className="flex flex-row justify-center items-center mb-2">
                     <div className="w-4/5">{task.desc}</div>
                     <div className="w-1/5">
-                      <a href={task.link}>
+                      <Link href={task.link}>
                         <button className="bg-[#FEAE33] text-black font-bold rounded-full px-3 py-1 hover:bg-[#E19323] transition-transform duration-200 transform hover:scale-105">
                           Let's Go
                         </button>
-                      </a>
+                      </Link>
                     </div>
                   </div>
               ))) : (<h3 className="justify-center text-center">Tidak ada.</h3>)}
@@ -286,11 +287,11 @@ const GoalCard: React.FC<CardProps> = ({ id_goal, title, desc, price, is_done, o
                   <div key={i} className="flex flex-row justify-center items-center mb-2">
                     <div className="w-4/5">{task.desc}</div>
                     <div className="w-1/5">
-                      <a href={task.link}>
+                      <Link href={task.link}>
                         <button className="bg-[#FEAE33] text-black font-bold rounded-full px-3 py-1 hover:bg-[#E19323] transition-transform duration-200 transform hover:scale-105">
                           Let's Go
                         </button>
-                      </a>
+                      </Link>
                     </div>
                   </div>
               ))) : (<h3 className="justify-center text-center">Tidak ada.</h3>)}
@@ -320,11 +321,11 @@ const GoalCard: React.FC<CardProps> = ({ id_goal, title, desc, price, is_done, o
                   <div key={i} className="flex flex-row justify-center items-center mb-2">
                     <div className="w-4/5">{task.desc}</div>
                     <div className="w-1/5">
-                      <a href={task.link}>
+                      <Link href={task.link}>
                         <button className="bg-[#FEAE33] text-black font-bold rounded-full px-3 py-1 hover:bg-[#E19323] transition-transform duration-200 transform hover:scale-105">
                           Let's Go
                         </button>
-                      </a>
+                      </Link>
                     </div>
                   </div>
               ))) : (<h3 className="justify-center text-center">Tidak ada.</h3>)}
@@ -354,11 +355,11 @@ const GoalCard: React.FC<CardProps> = ({ id_goal, title, desc, price, is_done, o
                   <div key={i} className="flex flex-row justify-center items-center mb-2">
                     <div className="w-4/5">{task.desc}</div>
                     <div className="w-1/5">
-                      <a href={task.link}>
+                      <Link href={task.link}>
                         <button className="bg-[#FEAE33] text-black font-bold rounded-full px-3 py-1 hover:bg-[#E19323] transition-transform duration-200 transform hover:scale-105">
                           Let's Go
                         </button>
-                      </a>
+                      </Link>
                     </div>
                   </div>
               ))) : (<h3 className="justify-center text-center">Tidak ada.</h3>)}
